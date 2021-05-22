@@ -7,6 +7,7 @@ from wait_until_is_visible import wait_until_home_page_is_visible, wait_until_ad
     wait_until_delete_warning_dialog, wait_until_delete_button_on_edit_post_page_is_visible
 
 
+# todo: 整理11行~70行 可以用on哪一個page分類?
 def sign_in_as_admin(self):
     self.driver.find_element_by_xpath(
         '//*[contains(text(), "Sign in") and @href="/keystone/signin"]').click()
