@@ -4,8 +4,7 @@ import unittest
 from wait_until_is_visible import wait_until_home_page_is_visible, wait_until_admin_ui_page_is_visible, \
     wait_until_posts_page_is_visible, wait_until_edit_post_page_is_visible, \
     wait_until_create_a_new_post_dialog_is_visible, wait_until_sign_in_dialog_is_visible, \
-    wait_until_delete_warning_dialog, wait_until_element_visible_by_xpath, \
-    wait_until_delete_button_on_edit_post_page_is_visible
+    wait_until_delete_warning_dialog, wait_until_delete_button_on_edit_post_page_is_visible
 
 
 def sign_in_as_admin(self):
