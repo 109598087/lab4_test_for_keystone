@@ -3,7 +3,6 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
 
-# todo: 下列funtcion兩個待移走
 def wait_until_element_visible_by_xpath(self, xpath):
     wait = WebDriverWait(self.driver, 10)
     wait.until(EC.visibility_of_element_located((By.XPATH, xpath)))

@@ -38,7 +38,7 @@ def click_create_submit_button(self):
     self.driver.find_element_by_xpath('//*[contains(text(), "Create") and @type="submit"]').submit()
 
 
-def go_back_keystone_posts_page_from_edit_post_page(self):  # todo: to -> back? ->button
+def go_back_keystone_posts_page_from_edit_post_page(self):  # todo: ->button?
     self.driver.find_element_by_xpath(
         '//*[contains(@data-e2e-editform-header-back, "true") and contains(@href, "/keystone/posts")]').click()
 
