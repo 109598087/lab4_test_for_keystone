@@ -1,12 +1,18 @@
 from selenium import webdriver
 import unittest
+# for wait until
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 import time
 
 
 def sign_in_as_admin(self):
     self.driver.find_element_by_xpath(
         '//*[contains(text(), "Sign in") and @href="/keystone/signin"]').click()
-    time.sleep(5)
+    wait = WebDriverWait(self.driver, 10)
+    wait.until(EC.visibility_of_element_located(
+        (By.XPATH, '//*[contains(@type, "submit") and contains(text(), "Sign In")]')))  # sign in button visibility
     self.driver.find_element_by_name('email').send_keys('demo@keystonejs.com')
     self.driver.find_element_by_name('password').send_keys('demo')
     self.driver.find_element_by_xpath('//*[contains(@type, "submit") and contains(text(), "Sign In")]').submit()
@@ -34,7 +40,7 @@ def click_create_submit_button(self):
     self.driver.find_element_by_xpath('//*[contains(text(), "Create") and @type="submit"]').submit()
 
 
-def go_to_keystone_posts_page_from_edit_post_page(self):  # to -> back?
+def go_to_keystone_posts_page_from_edit_post_page(self):  # todo: to -> back? ->button
     self.driver.find_element_by_xpath(
         '//*[contains(@data-e2e-editform-header-back, "true") and contains(@data-e2e-editform-header-back, "true")]').click()
 
@@ -50,16 +56,31 @@ def verify_keystone_posts_page_have_post(self, post_name):
 def delete_a_post(self, post_name):
     self.driver.find_element_by_xpath(
         '//*[contains(@class, "ItemList") and contains(text(), ' + "\"" + post_name + "\"" + ')]').click()
-    time.sleep(2)
+    wait_until_element_visible_by_xpath(self.driver,
+                                        '//*[contains(@data-e2e-editform-header-back, "true") and contains(@data-e2e-editform-header-back, "true")]')
     js = "var q=document.documentElement.scrollTop=10000"
     self.driver.execute_script(js)
-    time.sleep(2)
+    wait_until_element_visible_by_xpath(self.driver, '//*[contains(@data-button, "delete")]')
     self.driver.find_element_by_xpath('//*[contains(@data-button, "delete")]').click()
+    wait_until_element_visible_by_xpath(self.driver,
+                                        '//*[contains(@data-button-type, "confirm") and contains(text(), "Delete")]')
     self.driver.find_element_by_xpath(
         '//*[contains(@data-button-type, "confirm") and contains(text(), "Delete")]').click()
 
 
-# todo: varibles post_name
+def wait_until_element_visible_by_xpath(driver, xpath):
+    wait = WebDriverWait(driver, 10)
+    wait.until(EC.visibility_of_element_located(
+        (By.XPATH, xpath)))  # sign in button visibility
+
+
+def wait_until_element_visible_by_name(driver, name):
+    wait = WebDriverWait(driver, 10)
+    wait.until(EC.visibility_of_element_located(
+        (By.NAME, name)))  # sign in button visibility
+
+
+# todo: variables post_name
 # xpath example:  //*[contains(@id, "listHeaderSortButton")]
 class TestPostFeatures(unittest.TestCase):
 
@@ -70,31 +91,34 @@ class TestPostFeatures(unittest.TestCase):
     def setUp(self) -> None:
         self.driver.get('http://127.0.0.1:3000/')
         self.driver.maximize_window()
-        time.sleep(1)  # todo: wait
+        wait_until_element_visible_by_xpath(self.driver,
+                                            '//*[contains(text(), "Sign in") and @href="/keystone/signin"]')
         sign_in_as_admin(self)
-        time.sleep(1)
 
     def test_create_post_on_the_admin_ui_page_successfully(self):
-        time.sleep(2)
+        wait_until_element_visible_by_xpath(self.driver, '//*[contains(@class, "dashboard-group")]')
         click_a_dashboard(self, 'Posts', 'posts')
-        time.sleep(2)
+
+        wait_until_element_visible_by_xpath(self.driver, '//*[contains(text(), "Create ")]')
+
         click_create_post_button(self)
-        time.sleep(1)
+
+        wait_until_element_visible_by_name(self.driver, 'name')
         input_post_name(self, 'abc')
-        time.sleep(1)
         click_create_submit_button(self)
-        time.sleep(1)
+
+        wait_until_element_visible_by_xpath(self.driver,
+                                            '//*[contains(@data-e2e-editform-header-back, "true") and contains(@data-e2e-editform-header-back, "true")]')
         go_to_keystone_posts_page_from_edit_post_page(self)
-        time.sleep(1)
+        wait_until_element_visible_by_xpath(self.driver, '//*[contains(text(), ' + "abc" ')]')
         verify_keystone_posts_page_have_post(self, 'abc')
 
     def tearDown(self) -> None:
         delete_a_post(self, 'abc')
-        time.sleep(1)
+        wait_until_element_visible_by_xpath(self.driver, '//*[contains(text(), "Create ")]')
         sign_out(self)
-        time.sleep(1)
+        wait_until_element_visible_by_xpath(self.driver, '//*[contains(@class, "logo")]')
         go_to_keystone_home_page_from_sign_in_page(self)
-        time.sleep(5)
 
     @classmethod
     def tearDownClass(cls) -> None:
