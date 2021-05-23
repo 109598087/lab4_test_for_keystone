@@ -58,8 +58,8 @@ def read_a_post(self, post_name):
 
 
 # on edit_post_page
-def scroll_to_page_bottom(self):
-    js = "document.documentElement.scrollTop=10000"
+def scroll_page(self, top):
+    js = "document.documentElement.scrollTop=" + str(top)
     self.driver.execute_script(js)
 
 
@@ -107,6 +107,7 @@ def create_a_post(self, post_name):
 
 # edit_page -> posts_page
 def go_back_to_posts_page_from_edit_page(self):
+    scroll_page(self, 0)
     click_go_back_to_posts_page_button(self)
     wait_until_posts_page_is_visible(self)
 
@@ -119,7 +120,7 @@ def verify_posts_page_have_post(self, post_name):
 # on posts page -> edit_post_page -> delete_warning_dialog -> posts_page
 def delete_a_post(self, post_name):  # todo: 直接在posts page上delete post
     read_a_post(self, post_name)
-    scroll_to_page_bottom(self)
+    scroll_page(self, 10000)
     wait_until_delete_button_on_edit_post_page_is_visible(self)
     click_delete_post_button(self)
     wait_until_delete_warning_dialog(self)
