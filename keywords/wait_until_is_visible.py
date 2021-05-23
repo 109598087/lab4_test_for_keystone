@@ -48,3 +48,7 @@ def wait_until_delete_warning_dialog(self):
 # element
 def wait_until_delete_button_on_edit_post_page_is_visible(self):
     wait_until_element_visible_by_xpath(self, '//*[contains(@data-button, "delete")]')
+
+
+def wait_until_name_is_required_is_visible(self):
+    wait_until_element_visible_by_xpath(self, '//*[contains(@data-alert-type, "danger")]')

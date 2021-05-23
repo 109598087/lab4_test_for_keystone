@@ -1,10 +1,13 @@
+import time
+
 from selenium import webdriver
 import unittest
 from keywords.on_sign_in_page import input_email, input_password, submit_email_and_password, click_logo_button
 from keywords.wait_until_is_visible import wait_until_home_page_is_visible, wait_until_admin_ui_page_is_visible, \
     wait_until_posts_page_is_visible, wait_until_edit_post_page_is_visible, \
     wait_until_create_a_new_post_dialog_is_visible, wait_until_sign_in_page_is_visible, \
-    wait_until_delete_warning_dialog, wait_until_delete_button_on_edit_post_page_is_visible
+    wait_until_delete_warning_dialog, wait_until_delete_button_on_edit_post_page_is_visible, \
+    wait_until_name_is_required_is_visible
 from keywords.on_admin_ui_page import click_a_dashboard_button
 
 
@@ -26,6 +29,11 @@ def input_post_name(self, post_name):
 # on posts page create a new post create_a_new_post_dialog
 def click_create_submit_button(self):
     self.driver.find_element_by_xpath('//*[contains(text(), "Create") and @type="submit"]').submit()
+
+
+# on posts page create a new post create_a_new_post_dialog
+def click_cancel_button(self):
+    self.driver.find_element_by_xpath('//*[contains(text(), "Cancel") and @data-button-type="cancel"]').click()
 
 
 # on edit_post_page
@@ -130,6 +138,7 @@ def go_back_to_home_page_from_sign_in_page(self):
 # xpath example:  //*[contains(@id, "listHeaderSortButton")]
 class TestPostFeatures(unittest.TestCase):
     driver = None
+    post_name1 = ""
 
     @classmethod
     def setUpClass(cls) -> None:
@@ -141,14 +150,41 @@ class TestPostFeatures(unittest.TestCase):
         wait_until_home_page_is_visible(self)
         sign_in_as_admin(self)
 
-    def test_create_post_on_the_admin_ui_page_successfully(self):
+    def test_create_post_with_empty_post_name_and_fail(self):
+        post_name = ''
         go_to_posts_page_from_admin_ui_page(self)
-        create_a_post(self, 'abc')
+        click_create_post_button(self)
+        wait_until_create_a_new_post_dialog_is_visible(self)
+        input_post_name(self, post_name)
+        click_create_submit_button(self)
+        wait_until_name_is_required_is_visible(self)
+        assert 'Name is required' in self.driver.find_element_by_xpath('//*[contains(@data-alert-type, "danger")]').text
+        ##############
+        # teardown
+        click_cancel_button(self)
+
+    def test_create_post_with_more_than_0_and_less_than_or_equal_to_50_post_name_length_successfully(self):
+        past_name = 'abc'
+        go_to_posts_page_from_admin_ui_page(self)
+        create_a_post(self, past_name)
         go_back_to_posts_page_from_edit_page(self)
-        verify_posts_page_have_post(self, 'abc')
+        verify_posts_page_have_post(self, past_name)
+        ##############
+        # teardown
+        delete_a_post(self, past_name)
+
+    def test_create_post_with_more_than_50_post_name_length_successfully(self):
+        past_name = '01234567890123456789012345678901234567890123456789abcbasdfasdfasdf'
+        go_to_posts_page_from_admin_ui_page(self)
+        create_a_post(self, past_name)
+        go_back_to_posts_page_from_edit_page(self)
+        verify_posts_page_have_post(self, past_name)
+        ##############
+        # teardown
+        delete_a_post(self, past_name)
 
     def tearDown(self) -> None:
-        delete_a_post(self, 'abc')
+        # todo: delete all post?
         sign_out(self)
         go_back_to_home_page_from_sign_in_page(self)
 
