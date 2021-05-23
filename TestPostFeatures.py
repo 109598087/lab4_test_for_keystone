@@ -1,7 +1,8 @@
-import time
-
 from selenium import webdriver
 import unittest
+
+from selenium.common.exceptions import NoSuchElementException
+
 from keywords.on_sign_in_page import input_email, input_password, submit_email_and_password, click_logo_button
 from keywords.wait_until_is_visible import wait_until_home_page_is_visible, wait_until_admin_ui_page_is_visible, \
     wait_until_posts_page_is_visible, wait_until_edit_post_page_is_visible, \
@@ -10,6 +11,9 @@ from keywords.wait_until_is_visible import wait_until_home_page_is_visible, wait
     wait_until_name_is_required_is_visible
 from keywords.on_admin_ui_page import click_a_dashboard_button
 
+
+# todo: variables post_name
+# xpath example:  //*[contains(@id, "listHeaderSortButton")]
 
 def click_sign_in_button(self):
     self.driver.find_element_by_xpath(
@@ -31,7 +35,7 @@ def click_create_submit_button(self):
     self.driver.find_element_by_xpath('//*[contains(text(), "Create") and @type="submit"]').submit()
 
 
-# on posts page create a new post create_a_new_post_dialog
+# on posts page create a new post create_a_new_post_dialog -> posts page
 def click_cancel_button(self):
     self.driver.find_element_by_xpath('//*[contains(text(), "Cancel") and @data-button-type="cancel"]').click()
 
@@ -134,8 +138,11 @@ def go_back_to_home_page_from_sign_in_page(self):
     click_logo_button(self)
 
 
-# todo: variables post_name
-# xpath example:  //*[contains(@id, "listHeaderSortButton")]
+# def verify_posts_page_do_not_have_post(self):
+#     with self.assertRaises(NoSuchElementException):
+#         driver.find_element_by_link_text('This Post was created by selenium #Edit')
+
+
 class TestPostFeatures(unittest.TestCase):
     driver = None
     post_name1 = ""
@@ -182,6 +189,18 @@ class TestPostFeatures(unittest.TestCase):
         ##############
         # teardown
         delete_a_post(self, past_name)
+
+    def test_create_post_click_cancel_button_and_post_should_not_be_create(self):
+        post_name = 'abc'
+        go_to_posts_page_from_admin_ui_page(self)
+        click_create_post_button(self)
+        wait_until_create_a_new_post_dialog_is_visible(self)
+        input_post_name(self, post_name)
+        click_cancel_button(self)
+        try:
+            self.driver.find_element_by_xpath('//*[contains(text(), ' + "\"" + post_name + "\"" + ')]')
+        except NoSuchElementException:
+            assert NoSuchElementException
 
     def tearDown(self) -> None:
         # todo: delete all post?
