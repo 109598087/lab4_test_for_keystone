@@ -143,7 +143,7 @@ def go_back_to_home_page_from_sign_in_page(self):
 #         driver.find_element_by_link_text('This Post was created by selenium #Edit')
 
 
-class TestPostFeatures(unittest.TestCase):
+class TestPostCreate(unittest.TestCase):
     driver = None
     post_name1 = ""
 
