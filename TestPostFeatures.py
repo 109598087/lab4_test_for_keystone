@@ -1,24 +1,16 @@
 from selenium import webdriver
 import unittest
-# for sign in
-from on_sign_in_page import input_email, input_password, submit_email_and_password, click_logo_button
-# for wait until
-from wait_until_is_visible import wait_until_home_page_is_visible, wait_until_admin_ui_page_is_visible, \
+from keywords.on_sign_in_page import input_email, input_password, submit_email_and_password, click_logo_button
+from keywords.wait_until_is_visible import wait_until_home_page_is_visible, wait_until_admin_ui_page_is_visible, \
     wait_until_posts_page_is_visible, wait_until_edit_post_page_is_visible, \
     wait_until_create_a_new_post_dialog_is_visible, wait_until_sign_in_page_is_visible, \
     wait_until_delete_warning_dialog, wait_until_delete_button_on_edit_post_page_is_visible
+from keywords.on_admin_ui_page import click_a_dashboard_button
 
 
-# on posts page
 def click_sign_in_button(self):
     self.driver.find_element_by_xpath(
         '//*[contains(text(), "Sign in") and @href="/keystone/signin"]').click()
-
-
-# on admin_ui_page
-def click_a_dashboard_button(self, heading, label):  # todo: 拉出去
-    self.driver.find_element_by_xpath(
-        '//*[contains(@data-section-label,' + heading + ')]//*[contains(@class, "dashboard-group__list-label") and text()=' + "\"" + label + "\"" + ']').click()
 
 
 # on posts page
