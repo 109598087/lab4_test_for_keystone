@@ -18,6 +18,10 @@ def wait_until_home_page_is_visible(self):
     wait_until_element_visible_by_xpath(self, '//*[contains(text(), "Sign in") and @href="/keystone/signin"]')
 
 
+def wait_until_sign_in_page_is_visible(self):
+    wait_until_element_visible_by_xpath(self, '//*[contains(@class, "logo")]')
+
+
 def wait_until_admin_ui_page_is_visible(self):
     wait_until_element_visible_by_xpath(self, '//*[contains(@class, "dashboard-group")]')
 
@@ -32,10 +36,6 @@ def wait_until_edit_post_page_is_visible(self):
 
 
 # dialog
-def wait_until_sign_in_dialog_is_visible(self):
-    wait_until_element_visible_by_xpath(self, '//*[contains(@class, "logo")]')
-
-
 def wait_until_create_a_new_post_dialog_is_visible(self):
     wait_until_element_visible_by_name(self, 'name')
 
