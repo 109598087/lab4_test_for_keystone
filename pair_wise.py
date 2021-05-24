@@ -25,8 +25,8 @@ for i, pairs in enumerate(AllPairs(parameters)):
     A_list.append(pairs[0])
     B_list.append(pairs[1])
     C_list.append(pairs[2])
-    D_list.append(pairs[2])
-    E_list.append(pairs[2])
+    D_list.append(pairs[3])
+    E_list.append(pairs[4])
     # F_list.append(pairs[2])
     # G_list.append(pairs[2])
 
@@ -36,8 +36,8 @@ df = pd.DataFrame({
     'A': A_list,
     'B': B_list,
     'C': C_list,
-    'D': C_list,
-    'E': C_list,
+    'D': D_list,
+    'E': E_list,
     # 'F': C_list,
     # 'G': C_list,
 })
