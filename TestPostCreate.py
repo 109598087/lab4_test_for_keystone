@@ -1,3 +1,5 @@
+import time
+
 from selenium import webdriver
 import unittest
 
@@ -108,6 +110,7 @@ def create_a_post(self, post_name):
 # edit_page -> posts_page
 def go_back_to_posts_page_from_edit_page(self):
     scroll_page(self, 0)
+    time.sleep(5)
     click_go_back_to_posts_page_button(self)
     wait_until_posts_page_is_visible(self)
 

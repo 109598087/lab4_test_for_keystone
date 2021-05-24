@@ -17,8 +17,23 @@ def click_post_state_select_arrow(self):
 
 def input_select_post_state(self, post_state):
     self.driver.find_element_by_xpath(
-        '//*[contains(@class, "css-1wrt3l9") and @for="state"]//*[contains(@aria-activedescendant, "react-select-2")]') \
+        '//*[contains(@class, "css-1wrt3l9") and @for="state"]//*[contains(@aria-activedescendant, "react-select")]') \
         .send_keys(post_state)
+
+
+def click_post_author_select_arrow(self):
+    self.driver.find_element_by_xpath(
+        '//*[contains(@class, "css-1wrt3l9") and @for="author"]//*[@class = "Select-arrow"]').click()
+
+
+def input_select_post_author(self, post_author):
+    self.driver.find_element_by_xpath(
+        '//*[contains(@class, "css-1wrt3l9") and @for="author"]//*[contains(@aria-activedescendant, "react-select")]') \
+        .send_keys(post_author)
+
+
+def click_save_button(self):
+    self.driver.find_element_by_xpath('//*[@data-button = "update"]').click()
 
 
 ##############################################################################################
@@ -26,6 +41,55 @@ def input_post_state(self, post_state):
     click_post_state_select_arrow(self)
     input_select_post_state(self, post_state)
     input_select_post_state(self, Keys.ENTER)
+
+
+def input_post_author(self, post_author):
+    click_post_author_select_arrow(self)
+    input_select_post_author(self, post_author)
+    input_select_post_author(self, Keys.ENTER)
+
+
+def input_post_published_date(self, post_published_date):
+    self.driver.find_element_by_xpath(
+        '//*[contains(@class, "css-1wrt3l9") and @for="publishedDate"]//*[@name = "publishedDate"]').send_keys(
+        Keys.CONTROL, 'a')
+    self.driver.find_element_by_xpath(
+        '//*[contains(@class, "css-1wrt3l9") and @for="publishedDate"]//*[@name = "publishedDate"]').send_keys(
+        post_published_date)
+    self.driver.find_element_by_xpath(
+        '//*[contains(@class, "css-1wrt3l9") and @for="publishedDate"]//*[@name = "publishedDate"]').send_keys(
+        Keys.ENTER)
+    # for leave published date todo: need better way?
+    self.driver.find_element_by_class_name('css-2960tt').send_keys(Keys.ARROW_DOWN)
+    self.driver.find_element_by_class_name('css-2960tt').send_keys(Keys.ARROW_UP)
+
+
+def input_post_content_brief(self, post_content_brief):
+    self.driver.find_element_by_xpath(
+        '//*[contains(@class, "css-1wrt3l9") and @for="content.brief"]//*[contains(@id, "keystone-html")]').send_keys(
+        Keys.CONTROL, 'a')
+    self.driver.find_element_by_xpath(
+        '//*[contains(@class, "css-1wrt3l9") and @for="content.brief"]//*[contains(@id, "keystone-html")]').send_keys(
+        Keys.BACKSPACE)
+    self.driver.find_element_by_xpath(
+        '//*[contains(@class, "css-1wrt3l9") and @for="content.brief"]//*[contains(@id, "keystone-html")]').send_keys(
+        post_content_brief)
+
+
+def input_post_content_extended(self, post_content_extended):
+    self.driver.find_element_by_xpath(
+        '//*[contains(@class, "css-1wrt3l9") and @for="content.extended"]//*[contains(@id, "keystone-html")]').send_keys(
+        Keys.CONTROL, 'a')
+    self.driver.find_element_by_xpath(
+        '//*[contains(@class, "css-1wrt3l9") and @for="content.extended"]//*[contains(@id, "keystone-html")]').send_keys(
+        Keys.BACKSPACE)
+    self.driver.find_element_by_xpath(
+        '//*[contains(@class, "css-1wrt3l9") and @for="content.extended"]//*[contains(@id, "keystone-html")]').send_keys(
+        post_content_extended)
+
+
+def save_edit_post(self):
+    click_save_button(self)
 
 
 class TestPostEdit(unittest.TestCase):
@@ -45,16 +109,20 @@ class TestPostEdit(unittest.TestCase):
         create_a_post(self, post_name)
 
     def test_edit_post_with_ISP_input1(self):
-        post_state1 = 'Draft'
-        post_state2 = 'Published'
-        post_state3 = 'Archived'
-
+        post_state = 'Draft'
         post_author = 'Demo User'
-        post_published_date = '20210520'  # todo: error日期
+        post_published_date = '2020-05-20'  # todo: error日期
         post_content_brief = ''
         post_content_extended = ''
-        input_post_state(self, post_state1)
-        time.sleep(5)
+        input_post_state(self, post_state)
+        input_post_author(self, post_author)
+        input_post_published_date(self, post_published_date)
+        input_post_content_brief(self, post_content_brief)
+        input_post_content_extended(self, post_content_extended)
+        save_edit_post(self)
+        time.sleep(2)
+        assert 'Your changes have been saved successfully' in self.driver.find_element_by_xpath(
+            '//*[@data-alert-type = "success"]').text
 
     def tearDown(self) -> None:
         post_name = 'abc'
