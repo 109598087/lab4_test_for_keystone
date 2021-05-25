@@ -159,7 +159,7 @@ class TestPostCreate(unittest.TestCase):
         wait_until_home_page_is_visible(self)
         sign_in_as_admin(self)
 
-    def test_create_post_with_empty_post_name_and_fail(self):
+    def test_create_post_with_empty_post_name_and_fail(self):  # todo: change test name
         post_name = ''
         go_to_posts_page_from_admin_ui_page(self)
         click_create_post_button(self)
