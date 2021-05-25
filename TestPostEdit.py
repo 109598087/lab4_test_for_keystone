@@ -43,10 +43,12 @@ def input_post_state(self, post_state):
     input_select_post_state(self, Keys.ENTER)
 
 
-def input_post_author(self, post_author):
+def input_post_author(self, post_author):  # todo: 仍有可能錯
     click_post_author_select_arrow(self)
     wait_until_input_select_is_visible(self)
+    time.sleep(1)  # todo: wait
     input_select_post_author(self, post_author)
+    time.sleep(1)  # todo: wait
     input_select_post_author(self, Keys.ENTER)
 
 
@@ -93,6 +95,39 @@ def save_edit_post(self):
     click_save_button(self)
 
 
+def verify_edit_post_successfully(self):
+    assert 'Your changes have been saved successfully' in self.driver.find_element_by_xpath(  # todo: 包起來
+        '//*[@data-alert-type = "success"]').text
+
+
+def verify_edit_post_state_successfully(self, post_state):
+    assert post_state in self.driver.find_element_by_xpath(
+        '//*[contains(@class, "css-1wrt3l9") and @for="state"]//*[@class="Select-value-label"]').text
+
+
+def verify_edit_post_author_successfully(self, post_author):
+    assert post_author in self.driver.find_element_by_xpath(
+        '//*[contains(@class, "css-1wrt3l9") and @for="author"]//*[@class="Select-value-label"]').text
+
+
+def verify_edit_post_published_date_successfully(self, post_published_date):
+    assert post_published_date in self.driver.find_element_by_xpath(
+        '//*[contains(@class, "css-1wrt3l9") and @for="publishedDate"]//*[@name="publishedDate"]').get_attribute(
+        'value')  # todo: [contains(@class, "css-1wrt3l9") 可不用contains?
+
+
+def verify_edit_post_content_brief_successfully(self, post_content_brief):
+    self.driver.switch_to.frame(0)
+    assert post_content_brief in self.driver.find_element_by_xpath('//*[@id="tinymce"]').text
+    self.driver.switch_to.default_content()
+
+
+def verify_edit_post_content_extended_successfully(self, post_content_extended):
+    self.driver.switch_to.frame(1)
+    assert post_content_extended in self.driver.find_element_by_xpath('//*[@id="tinymce"]').text
+    self.driver.switch_to.default_content()
+
+
 class TestPostEdit(unittest.TestCase):
     driver = None
 
@@ -121,20 +156,12 @@ class TestPostEdit(unittest.TestCase):
         input_post_content_brief(self, post_content_brief)
         input_post_content_extended(self, post_content_extended)
         save_edit_post(self)
-        assert 'Your changes have been saved successfully' in self.driver.find_element_by_xpath(  # todo: 包起來
-            '//*[@data-alert-type = "success"]').text
-        assert 'Draft' in self.driver.find_element_by_xpath(
-            '//*[contains(@class, "css-1wrt3l9") and @for="state"]//*[@class="Select-value-label"]').text
-        assert 'Demo User' in self.driver.find_element_by_xpath(
-            '//*[contains(@class, "css-1wrt3l9") and @for="author"]//*[@class="Select-value-label"]').text
-        assert '2020-05-20' in self.driver.find_element_by_xpath(
-            '//*[contains(@class, "css-1wrt3l9") and @for="publishedDate"]//*[@name="publishedDate"]').get_attribute(
-            'value')  # todo: [contains(@class, "css-1wrt3l9") 可不用contains?
-        self.driver.switch_to.frame(0)
-        assert '' in self.driver.find_element_by_xpath('//*[@id="tinymce"]').text
-        self.driver.switch_to.default_content()
-        self.driver.switch_to.frame(1)
-        assert '' in self.driver.find_element_by_xpath('//*[@id="tinymce"]').text
+        verify_edit_post_successfully(self)
+        verify_edit_post_state_successfully(self, post_state)
+        verify_edit_post_author_successfully(self, post_author)
+        verify_edit_post_published_date_successfully(self, post_content_brief)
+        verify_edit_post_content_brief_successfully(self, post_content_brief)
+        verify_edit_post_content_extended_successfully(self, post_content_extended)
 
     def tearDown(self) -> None:
         post_name = 'abc'
