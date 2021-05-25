@@ -173,6 +173,10 @@ def verify_reset_post_content_extended_successfully(self, post_content_extended)
     self.driver.switch_to.default_content()
 
 
+def verify_edit_post_fail_with_wrong_published_date(self):
+    assert 'PublishedDate is invalid' in self.driver.find_element_by_xpath('//*[@data-alert-type="danger"]//*').text
+
+
 class TestPostEdit(unittest.TestCase):
     driver = None
 
@@ -417,6 +421,12 @@ class TestPostEdit(unittest.TestCase):
         verify_reset_post_published_date_successfully(self, '2021-05-25')
         verify_reset_post_content_brief_successfully(self, '')
         verify_reset_post_content_extended_successfully(self, '')
+
+    def test_edit_post_with_wrong_published_date(self):
+        post_published_date = 'abc'  # todo: error日期  # todo: today_button
+        input_post_published_date(self, post_published_date)
+        save_edit_post(self)
+        verify_edit_post_fail_with_wrong_published_date(self)
 
     def tearDown(self) -> None:
         post_name = 'abc'
