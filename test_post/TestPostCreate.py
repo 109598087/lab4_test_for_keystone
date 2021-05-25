@@ -171,6 +171,7 @@ class TestPostCreate(unittest.TestCase):
         ##############
         # teardown
         click_cancel_button(self)
+        print('test_create_post_with_empty_post_name_and_fail ok')
 
     def test_create_post_with_more_than_0_and_less_than_or_equal_to_50_post_name_length_successfully(self):
         past_name = 'abc'
@@ -181,6 +182,7 @@ class TestPostCreate(unittest.TestCase):
         ##############
         # teardown
         delete_a_post(self, past_name)
+        print('test_create_post_with_more_than_0_and_less_than_or_equal_to_50_post_name_length_successfully ok')
 
     def test_create_post_with_more_than_50_post_name_length_successfully(self):
         past_name = '01234567890123456789012345678901234567890123456789abcbasdfasdfasdf'
@@ -191,6 +193,7 @@ class TestPostCreate(unittest.TestCase):
         ##############
         # teardown
         delete_a_post(self, past_name)
+        print('test_create_post_with_more_than_50_post_name_length_successfully ok')
 
     def test_create_post_click_cancel_button_and_post_should_not_be_create(self):
         post_name = 'abc'
@@ -203,6 +206,7 @@ class TestPostCreate(unittest.TestCase):
             self.driver.find_element_by_xpath('//*[contains(text(), ' + "\"" + post_name + "\"" + ')]')
         except NoSuchElementException:
             assert NoSuchElementException
+        print('test_create_post_click_cancel_button_and_post_should_not_be_create ok')
 
     def tearDown(self) -> None:
         # todo: delete all post?

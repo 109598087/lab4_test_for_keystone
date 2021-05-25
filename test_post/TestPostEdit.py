@@ -211,6 +211,7 @@ class TestPostEdit(unittest.TestCase):
         verify_edit_post_published_date_successfully(self, post_published_date)
         verify_edit_post_content_brief_successfully(self, post_content_brief)
         verify_edit_post_content_extended_successfully(self, post_content_extended)
+        print('test_edit_post_with_ISP_input ok')
 
     def test_edit_post_with_ISP_input2(self):
         post_state = 'Published'
@@ -230,6 +231,7 @@ class TestPostEdit(unittest.TestCase):
         verify_edit_post_published_date_successfully(self, post_published_date)
         verify_edit_post_content_brief_successfully(self, post_content_brief)
         verify_edit_post_content_extended_successfully(self, post_content_extended)
+        print('test_edit_post_with_ISP_input ok')
 
     def test_edit_post_with_ISP_input3(self):
         post_state = 'Archived'
@@ -249,6 +251,7 @@ class TestPostEdit(unittest.TestCase):
         verify_edit_post_published_date_successfully(self, post_published_date)
         verify_edit_post_content_brief_successfully(self, post_content_brief)
         verify_edit_post_content_extended_successfully(self, post_content_extended)
+        print('test_edit_post_with_ISP_input ok')
 
     def test_edit_post_with_ISP_input4(self):
         post_state = 'Published'
@@ -268,6 +271,7 @@ class TestPostEdit(unittest.TestCase):
         verify_edit_post_published_date_successfully(self, post_published_date)
         verify_edit_post_content_brief_successfully(self, post_content_brief)
         verify_edit_post_content_extended_successfully(self, post_content_extended)
+        print('test_edit_post_with_ISP_input ok')
 
     def test_edit_post_with_ISP_input5(self):
         post_state = 'Archived'
@@ -287,6 +291,7 @@ class TestPostEdit(unittest.TestCase):
         verify_edit_post_published_date_successfully(self, post_published_date)
         verify_edit_post_content_brief_successfully(self, post_content_brief)
         verify_edit_post_content_extended_successfully(self, post_content_extended)
+        print('test_edit_post_with_ISP_input ok')
 
     def test_edit_post_with_ISP_input6(self):
         post_state = 'Draft'
@@ -306,6 +311,7 @@ class TestPostEdit(unittest.TestCase):
         verify_edit_post_published_date_successfully(self, post_published_date)
         verify_edit_post_content_brief_successfully(self, post_content_brief)
         verify_edit_post_content_extended_successfully(self, post_content_extended)
+        print('test_edit_post_with_ISP_input ok')
 
     def test_edit_post_with_ISP_input7(self):
         post_state = 'Archived'
@@ -325,6 +331,7 @@ class TestPostEdit(unittest.TestCase):
         verify_edit_post_published_date_successfully(self, post_published_date)
         verify_edit_post_content_brief_successfully(self, post_content_brief)
         verify_edit_post_content_extended_successfully(self, post_content_extended)
+        print('test_edit_post_with_ISP_input ok')
 
     def test_edit_post_with_ISP_input8(self):
         post_state = 'Draft'
@@ -344,6 +351,7 @@ class TestPostEdit(unittest.TestCase):
         verify_edit_post_published_date_successfully(self, post_published_date)
         verify_edit_post_content_brief_successfully(self, post_content_brief)
         verify_edit_post_content_extended_successfully(self, post_content_extended)
+        print('test_edit_post_with_ISP_input ok')
 
     def test_edit_post_with_ISP_input9(self):
         post_state = 'Published'
@@ -363,6 +371,7 @@ class TestPostEdit(unittest.TestCase):
         verify_edit_post_published_date_successfully(self, post_published_date)
         verify_edit_post_content_brief_successfully(self, post_content_brief)
         verify_edit_post_content_extended_successfully(self, post_content_extended)
+        print('test_edit_post_with_ISP_input ok')
 
     def test_edit_post_with_ISP_input10(self):
         post_state = 'Published'
@@ -382,6 +391,7 @@ class TestPostEdit(unittest.TestCase):
         verify_edit_post_published_date_successfully(self, post_published_date)
         verify_edit_post_content_brief_successfully(self, post_content_brief)
         verify_edit_post_content_extended_successfully(self, post_content_extended)
+        print('test_edit_post_with_ISP_input ok')
 
     def test_edit_post_with_ISP_input11(self):
         post_state = 'Archived'
@@ -401,6 +411,7 @@ class TestPostEdit(unittest.TestCase):
         verify_edit_post_published_date_successfully(self, post_published_date)
         verify_edit_post_content_brief_successfully(self, post_content_brief)
         verify_edit_post_content_extended_successfully(self, post_content_extended)
+        print('test_edit_post_with_ISP_input ok')
 
     def test_edit_post_and_reset_changeds(self):
         post_state = 'Archived'
@@ -421,12 +432,14 @@ class TestPostEdit(unittest.TestCase):
         verify_reset_post_published_date_successfully(self, '2021-05-25')
         verify_reset_post_content_brief_successfully(self, '')
         verify_reset_post_content_extended_successfully(self, '')
+        print('test_edit_post_and_reset_changeds ok')
 
     def test_edit_post_with_wrong_published_date(self):
         post_published_date = 'abc'  # todo: error日期  # todo: today_button
         input_post_published_date(self, post_published_date)
         save_edit_post(self)
         verify_edit_post_fail_with_wrong_published_date(self)
+        print('test_edit_post_with_wrong_published_date ok')
 
     def tearDown(self) -> None:
         post_name = 'abc'
