@@ -148,7 +148,6 @@ def go_back_to_home_page_from_sign_in_page(self):
 
 class TestPostCreate(unittest.TestCase):
     driver = None
-    post_name1 = ""
 
     @classmethod
     def setUpClass(cls) -> None:
