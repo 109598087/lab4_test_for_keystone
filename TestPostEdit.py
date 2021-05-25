@@ -46,9 +46,9 @@ def input_post_state(self, post_state):
 def input_post_author(self, post_author):  # todo: 仍有可能錯
     click_post_author_select_arrow(self)
     wait_until_input_select_is_visible(self)
-    time.sleep(1)  # todo: wait
+    time.sleep(2)  # todo: wait
     input_select_post_author(self, post_author)
-    time.sleep(1)  # todo: wait
+    time.sleep(2)  # todo: wait
     input_select_post_author(self, Keys.ENTER)
 
 
@@ -181,6 +181,179 @@ class TestPostEdit(unittest.TestCase):
         verify_edit_post_published_date_successfully(self, post_published_date)
         verify_edit_post_content_brief_successfully(self, post_content_brief)
         verify_edit_post_content_extended_successfully(self, post_content_extended)
+
+    def test_edit_post_with_ISP_input3(self):
+        post_state = 'Archived'
+        post_author = 'Demo User'
+        post_published_date = '2021-05-25'  # todo: error日期  # todo: today_button
+        post_content_brief = 'post_content_brief_testpost_content_brief_testpost_content_brief_testpost_content_brief_testpost_content_brief_testpost_content_brief_testpost_content_brief_testpost_content_brief_testpost_content_brief_testpost_content_brief_testpost_content_brief_testpost_content_brief_testpost_content_brief_testpost_content_brief_testpost_content_brief_testpost_content_brief_testpost_content_brief_testpost_content_brief_testpost_content_brief_testpost_content_brief_testpost_content_brief_testpost_content_brief_testpost_content_brief_testpost_content_brief_testpost_content_brief_testpost_content_brief_testpost_content_brief_testpost_content_brief_testpost_content_brief_testpost_content_brief_testpost_content_brief_testpost_content_brief_test'
+        post_content_extended = 'post_content_extendedpost_content_extendedpost_content_extendedpost_content_extendedpost_content_extendedpost_content_extendedpost_content_extendedpost_content_extendedpost_content_extendedpost_content_extendedpost_content_extendedpost_content_extendedpost_content_extendedpost_content_extendedpost_content_extendedpost_content_extendedpost_content_extendedpost_content_extendedpost_content_extendedpost_content_extendedpost_content_extendedpost_content_extendedpost_content_extendedpost_content_extendedpost_content_extendedpost_content_extendedpost_content_extendedpost_content_extendedpost_content_extendedpost_content_extendedpost_content_extendedpost_content_extendedpost_content_extendedpost_content_extendedpost_content_extended'
+        input_post_state(self, post_state)
+        input_post_author(self, post_author)
+        input_post_published_date(self, post_published_date)
+        input_post_content_brief(self, post_content_brief)
+        input_post_content_extended(self, post_content_extended)
+        save_edit_post(self)
+        verify_edit_post_successfully(self)
+        verify_edit_post_state_successfully(self, post_state)
+        verify_edit_post_author_successfully(self, post_author)
+        verify_edit_post_published_date_successfully(self, post_published_date)
+        verify_edit_post_content_brief_successfully(self, post_content_brief)
+        verify_edit_post_content_extended_successfully(self, post_content_extended)
+
+    def test_edit_post_with_ISP_input4(self):
+        post_state = 'Published'
+        post_author = 'Demo User'
+        post_published_date = '2020-05-25'  # todo: error日期  # todo: today_button
+        post_content_brief = ''
+        post_content_extended = 'post_content_extendedpost_content_extendedpost_content_extendedpost_content_extendedpost_content_extendedpost_content_extendedpost_content_extendedpost_content_extendedpost_content_extendedpost_content_extendedpost_content_extendedpost_content_extendedpost_content_extendedpost_content_extendedpost_content_extendedpost_content_extendedpost_content_extendedpost_content_extendedpost_content_extendedpost_content_extendedpost_content_extendedpost_content_extendedpost_content_extendedpost_content_extendedpost_content_extendedpost_content_extendedpost_content_extendedpost_content_extendedpost_content_extendedpost_content_extendedpost_content_extendedpost_content_extendedpost_content_extendedpost_content_extendedpost_content_extended'
+        input_post_state(self, post_state)
+        input_post_author(self, post_author)
+        input_post_published_date(self, post_published_date)
+        input_post_content_brief(self, post_content_brief)
+        input_post_content_extended(self, post_content_extended)
+        save_edit_post(self)
+        verify_edit_post_successfully(self)
+        verify_edit_post_state_successfully(self, post_state)
+        verify_edit_post_author_successfully(self, post_author)
+        verify_edit_post_published_date_successfully(self, post_published_date)
+        verify_edit_post_content_brief_successfully(self, post_content_brief)
+        verify_edit_post_content_extended_successfully(self, post_content_extended)
+
+    def test_edit_post_with_ISP_input5(self):
+        post_state = 'Archived'
+        post_author = 'Demo User'
+        post_published_date = '2020-05-20'  # todo: error日期  # todo: today_button
+        post_content_brief = 'post_content_brief_testpost_content_brief_testpost_content_brief_testpost_content_brief_testpost_content_brief_testpost_content_brief_testpost_content_brief_testpost_content_brief_testpost_content_brief_testpost_content_brief_testpost_content_brief_testpost_content_brief_testpost_content_brief_testpost_content_brief_testpost_content_brief_testpost_content_brief_testpost_content_brief_testpost_content_brief_testpost_content_brief_testpost_content_brief_testpost_content_brief_testpost_content_brief_testpost_content_brief_testpost_content_brief_testpost_content_brief_testpost_content_brief_testpost_content_brief_testpost_content_brief_testpost_content_brief_testpost_content_brief_testpost_content_brief_testpost_content_brief_test'
+        post_content_extended = 'post_content_extendedpost_content_extendedpost_content_extendedpost_content_extendedpost_content_extendedpost_content_extendedpost_content_extendedpost_content_extendedpost_content_extendedpost_content_extendedpost_content_extendedpost_content_extendedpost_content_extendedpost_content_extendedpost_content_extendedpost_content_extendedpost_content_extendedpost_content_extendedpost_content_extendedpost_content_extendedpost_content_extendedpost_content_extendedpost_content_extendedpost_content_extendedpost_content_extendedpost_content_extendedpost_content_extendedpost_content_extendedpost_content_extendedpost_content_extendedpost_content_extendedpost_content_extendedpost_content_extendedpost_content_extendedpost_content_extended'
+        input_post_state(self, post_state)
+        input_post_author(self, post_author)
+        input_post_published_date(self, post_published_date)
+        input_post_content_brief(self, post_content_brief)
+        input_post_content_extended(self, post_content_extended)
+        save_edit_post(self)
+        verify_edit_post_successfully(self)
+        verify_edit_post_state_successfully(self, post_state)
+        verify_edit_post_author_successfully(self, post_author)
+        verify_edit_post_published_date_successfully(self, post_published_date)
+        verify_edit_post_content_brief_successfully(self, post_content_brief)
+        verify_edit_post_content_extended_successfully(self, post_content_extended)
+
+    def test_edit_post_with_ISP_input6(self):
+        post_state = 'Draft'
+        post_author = 'Demo User'
+        post_published_date = '2021-05-20'  # todo: error日期  # todo: today_button
+        post_content_brief = 'post_content_brief'
+        post_content_extended = 'post_content_extendedpost_content_extendedpost_content_extendedpost_content_extendedpost_content_extendedpost_content_extendedpost_content_extendedpost_content_extendedpost_content_extendedpost_content_extendedpost_content_extendedpost_content_extendedpost_content_extendedpost_content_extendedpost_content_extendedpost_content_extendedpost_content_extendedpost_content_extendedpost_content_extendedpost_content_extendedpost_content_extendedpost_content_extendedpost_content_extendedpost_content_extendedpost_content_extendedpost_content_extendedpost_content_extendedpost_content_extendedpost_content_extendedpost_content_extendedpost_content_extendedpost_content_extendedpost_content_extendedpost_content_extendedpost_content_extended'
+        input_post_state(self, post_state)
+        input_post_author(self, post_author)
+        input_post_published_date(self, post_published_date)
+        input_post_content_brief(self, post_content_brief)
+        input_post_content_extended(self, post_content_extended)
+        save_edit_post(self)
+        verify_edit_post_successfully(self)
+        verify_edit_post_state_successfully(self, post_state)
+        verify_edit_post_author_successfully(self, post_author)
+        verify_edit_post_published_date_successfully(self, post_published_date)
+        verify_edit_post_content_brief_successfully(self, post_content_brief)
+        verify_edit_post_content_extended_successfully(self, post_content_extended)
+
+    def test_edit_post_with_ISP_input7(self):
+        post_state = 'Archived'
+        post_author = 'Demo User'
+        post_published_date = '2020-05-20'  # todo: error日期  # todo: today_button
+        post_content_brief = 'post_content_brief'
+        post_content_extended = 'post_content_extended'
+        input_post_state(self, post_state)
+        input_post_author(self, post_author)
+        input_post_published_date(self, post_published_date)
+        input_post_content_brief(self, post_content_brief)
+        input_post_content_extended(self, post_content_extended)
+        save_edit_post(self)
+        verify_edit_post_successfully(self)
+        verify_edit_post_state_successfully(self, post_state)
+        verify_edit_post_author_successfully(self, post_author)
+        verify_edit_post_published_date_successfully(self, post_published_date)
+        verify_edit_post_content_brief_successfully(self, post_content_brief)
+        verify_edit_post_content_extended_successfully(self, post_content_extended)
+
+    def test_edit_post_with_ISP_input8(self):
+        post_state = 'Draft'
+        post_author = 'Demo User'
+        post_published_date = '2020-05-25'  # todo: error日期  # todo: today_button
+        post_content_brief = 'post_content_brief_testpost_content_brief_testpost_content_brief_testpost_content_brief_testpost_content_brief_testpost_content_brief_testpost_content_brief_testpost_content_brief_testpost_content_brief_testpost_content_brief_testpost_content_brief_testpost_content_brief_testpost_content_brief_testpost_content_brief_testpost_content_brief_testpost_content_brief_testpost_content_brief_testpost_content_brief_testpost_content_brief_testpost_content_brief_testpost_content_brief_testpost_content_brief_testpost_content_brief_testpost_content_brief_testpost_content_brief_testpost_content_brief_testpost_content_brief_testpost_content_brief_testpost_content_brief_testpost_content_brief_testpost_content_brief_testpost_content_brief_test'
+        post_content_extended = 'post_content_extended'
+        input_post_state(self, post_state)
+        input_post_author(self, post_author)
+        input_post_published_date(self, post_published_date)
+        input_post_content_brief(self, post_content_brief)
+        input_post_content_extended(self, post_content_extended)
+        save_edit_post(self)
+        verify_edit_post_successfully(self)
+        verify_edit_post_state_successfully(self, post_state)
+        verify_edit_post_author_successfully(self, post_author)
+        verify_edit_post_published_date_successfully(self, post_published_date)
+        verify_edit_post_content_brief_successfully(self, post_content_brief)
+        verify_edit_post_content_extended_successfully(self, post_content_extended)
+
+    def test_edit_post_with_ISP_input9(self):
+        post_state = 'Published'
+        post_author = 'Demo User'
+        post_published_date = '2022-05-25'  # todo: error日期  # todo: today_button
+        post_content_brief = ''
+        post_content_extended = 'post_content_extended'
+        input_post_state(self, post_state)
+        input_post_author(self, post_author)
+        input_post_published_date(self, post_published_date)
+        input_post_content_brief(self, post_content_brief)
+        input_post_content_extended(self, post_content_extended)
+        save_edit_post(self)
+        verify_edit_post_successfully(self)
+        verify_edit_post_state_successfully(self, post_state)
+        verify_edit_post_author_successfully(self, post_author)
+        verify_edit_post_published_date_successfully(self, post_published_date)
+        verify_edit_post_content_brief_successfully(self, post_content_brief)
+        verify_edit_post_content_extended_successfully(self, post_content_extended)
+
+    def test_edit_post_with_ISP_input10(self):
+        post_state = 'Published'
+        post_author = 'Demo User'
+        post_published_date = '2022-05-25'  # todo: error日期  # todo: today_button
+        post_content_brief = 'post_content_brief_testpost_content_brief_testpost_content_brief_testpost_content_brief_testpost_content_brief_testpost_content_brief_testpost_content_brief_testpost_content_brief_testpost_content_brief_testpost_content_brief_testpost_content_brief_testpost_content_brief_testpost_content_brief_testpost_content_brief_testpost_content_brief_testpost_content_brief_testpost_content_brief_testpost_content_brief_testpost_content_brief_testpost_content_brief_testpost_content_brief_testpost_content_brief_testpost_content_brief_testpost_content_brief_testpost_content_brief_testpost_content_brief_testpost_content_brief_testpost_content_brief_testpost_content_brief_testpost_content_brief_testpost_content_brief_testpost_content_brief_test'
+        post_content_extended = ''
+        input_post_state(self, post_state)
+        input_post_author(self, post_author)
+        input_post_published_date(self, post_published_date)
+        input_post_content_brief(self, post_content_brief)
+        input_post_content_extended(self, post_content_extended)
+        save_edit_post(self)
+        verify_edit_post_successfully(self)
+        verify_edit_post_state_successfully(self, post_state)
+        verify_edit_post_author_successfully(self, post_author)
+        verify_edit_post_published_date_successfully(self, post_published_date)
+        verify_edit_post_content_brief_successfully(self, post_content_brief)
+        verify_edit_post_content_extended_successfully(self, post_content_extended)
+
+    def test_edit_post_with_ISP_input11(self):
+        post_state = 'Archived'
+        post_author = 'Demo User'
+        post_published_date = '2021-05-25'  # todo: error日期  # todo: today_button
+        post_content_brief = 'post_content_brief'
+        post_content_extended = ''
+        input_post_state(self, post_state)
+        input_post_author(self, post_author)
+        input_post_published_date(self, post_published_date)
+        input_post_content_brief(self, post_content_brief)
+        input_post_content_extended(self, post_content_extended)
+        save_edit_post(self)
+        verify_edit_post_successfully(self)
+        verify_edit_post_state_successfully(self, post_state)
+        verify_edit_post_author_successfully(self, post_author)
+        verify_edit_post_published_date_successfully(self, post_published_date)
+        verify_edit_post_content_brief_successfully(self, post_content_brief)
+        verify_edit_post_content_extended_successfully(self, post_content_extended)
+
+    # def test_edit_post_and_reset_changeds(self):
 
     def tearDown(self) -> None:
         post_name = 'abc'
