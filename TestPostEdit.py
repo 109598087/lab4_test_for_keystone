@@ -6,7 +6,7 @@ import unittest
 from selenium.webdriver.common.keys import Keys
 
 from TestPostCreate import sign_in_as_admin, go_to_posts_page_from_admin_ui_page, create_a_post, delete_a_post, \
-    go_back_to_posts_page_from_edit_page
+    go_back_to_posts_page_from_edit_page, go_back_to_home_page_from_sign_in_page, sign_out
 from keywords.wait_until_is_visible import wait_until_home_page_is_visible, wait_until_input_select_is_visible
 
 
@@ -159,7 +159,26 @@ class TestPostEdit(unittest.TestCase):
         verify_edit_post_successfully(self)
         verify_edit_post_state_successfully(self, post_state)
         verify_edit_post_author_successfully(self, post_author)
-        verify_edit_post_published_date_successfully(self, post_content_brief)
+        verify_edit_post_published_date_successfully(self, post_published_date)
+        verify_edit_post_content_brief_successfully(self, post_content_brief)
+        verify_edit_post_content_extended_successfully(self, post_content_extended)
+
+    def test_edit_post_with_ISP_input2(self):
+        post_state = 'Published'
+        post_author = 'Demo User'
+        post_published_date = '2020-05-25'  # todo: error日期  # todo: today_button
+        post_content_brief = 'post_content_brief'
+        post_content_extended = 'post_content_extended'
+        input_post_state(self, post_state)
+        input_post_author(self, post_author)
+        input_post_published_date(self, post_published_date)
+        input_post_content_brief(self, post_content_brief)
+        input_post_content_extended(self, post_content_extended)
+        save_edit_post(self)
+        verify_edit_post_successfully(self)
+        verify_edit_post_state_successfully(self, post_state)
+        verify_edit_post_author_successfully(self, post_author)
+        verify_edit_post_published_date_successfully(self, post_published_date)
         verify_edit_post_content_brief_successfully(self, post_content_brief)
         verify_edit_post_content_extended_successfully(self, post_content_extended)
 
@@ -168,6 +187,8 @@ class TestPostEdit(unittest.TestCase):
         # go_back_to_posts_page_from_edit_page(self)  # todo: 要移除? todo:要加wait?
         self.driver.back()  # todo: 要移除?
         delete_a_post(self, post_name)
+        sign_out(self)
+        go_back_to_home_page_from_sign_in_page(self)
 
     @classmethod
     def tearDownClass(cls) -> None:
