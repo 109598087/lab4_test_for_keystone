@@ -182,7 +182,7 @@ class TestPostEdit(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls) -> None:
-        cls.driver = webdriver.Chrome('chromedriver.exe')
+        cls.driver = webdriver.Chrome('../chromedriver.exe')
 
     def setUp(self) -> None:
         self.driver.get('http://127.0.0.1:3000/')
