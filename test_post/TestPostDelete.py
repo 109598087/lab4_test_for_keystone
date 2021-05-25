@@ -27,7 +27,7 @@ class TestPostDelete(unittest.TestCase):
         go_to_posts_page_from_admin_ui_page(self)
 
     def test_delete_a_post_with_ISP_input1(self):
-        post_name1 = 'abc'
+        post_name1 = 'test'
         create_a_post(self, post_name1)
         self.driver.back()  # todo: 要移除?
         delete_a_post(self, post_name1)
@@ -47,7 +47,7 @@ class TestPostDelete(unittest.TestCase):
         # todo: add print(message)!!!
 
     def test_create_post_click_cancel_button_and_post_should_not_be_create(self):
-        post_name1 = 'abc'
+        post_name1 = 'asdf'
         create_a_post(self, post_name1)
         self.driver.back()  # todo: 要移除?
         read_a_post(self, post_name1)
