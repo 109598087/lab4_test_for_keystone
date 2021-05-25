@@ -7,7 +7,7 @@ from selenium.webdriver.common.keys import Keys
 
 from TestPostCreate import sign_in_as_admin, go_to_posts_page_from_admin_ui_page, create_a_post, delete_a_post, \
     go_back_to_posts_page_from_edit_page
-from keywords.wait_until_is_visible import wait_until_home_page_is_visible
+from keywords.wait_until_is_visible import wait_until_home_page_is_visible, wait_until_input_select_is_visible
 
 
 def click_post_state_select_arrow(self):
@@ -38,13 +38,14 @@ def click_save_button(self):
 
 ##############################################################################################
 def input_post_state(self, post_state):
-    click_post_state_select_arrow(self)
+    click_post_state_select_arrow(self)  # todo: need wait?
     input_select_post_state(self, post_state)
     input_select_post_state(self, Keys.ENTER)
 
 
 def input_post_author(self, post_author):
     click_post_author_select_arrow(self)
+    wait_until_input_select_is_visible(self)
     input_select_post_author(self, post_author)
     input_select_post_author(self, Keys.ENTER)
 
@@ -112,21 +113,33 @@ class TestPostEdit(unittest.TestCase):
         post_state = 'Draft'
         post_author = 'Demo User'
         post_published_date = '2020-05-20'  # todo: error日期
-        post_content_brief = ''
-        post_content_extended = ''
+        post_content_brief = 'abc'
+        post_content_extended = 'cde'
         input_post_state(self, post_state)
         input_post_author(self, post_author)
         input_post_published_date(self, post_published_date)
         input_post_content_brief(self, post_content_brief)
         input_post_content_extended(self, post_content_extended)
         save_edit_post(self)
-        time.sleep(2)
-        assert 'Your changes have been saved successfully' in self.driver.find_element_by_xpath(
+        assert 'Your changes have been saved successfully' in self.driver.find_element_by_xpath(  # todo: 包起來
             '//*[@data-alert-type = "success"]').text
+        assert 'Draft' in self.driver.find_element_by_xpath(
+            '//*[contains(@class, "css-1wrt3l9") and @for="state"]//*[@class="Select-value-label"]').text
+        assert 'Demo User' in self.driver.find_element_by_xpath(
+            '//*[contains(@class, "css-1wrt3l9") and @for="author"]//*[@class="Select-value-label"]').text
+        assert '2020-05-20' in self.driver.find_element_by_xpath(
+            '//*[contains(@class, "css-1wrt3l9") and @for="publishedDate"]//*[@name="publishedDate"]').get_attribute(
+            'value')  # todo: [contains(@class, "css-1wrt3l9") 可不用contains?
+        self.driver.switch_to.frame(0)
+        assert 'abc' in self.driver.find_element_by_xpath('//*[@id="tinymce"]').text
+        self.driver.switch_to.default_content()
+        self.driver.switch_to.frame(1)
+        assert 'cde' in self.driver.find_element_by_xpath('//*[@id="tinymce"]').text
 
     def tearDown(self) -> None:
         post_name = 'abc'
-        go_back_to_posts_page_from_edit_page(self)  # todo: 要移除?
+        # go_back_to_posts_page_from_edit_page(self)  # todo: 要移除? todo:要加wait?
+        self.driver.back()  # todo: 要移除?
         delete_a_post(self, post_name)
 
     @classmethod

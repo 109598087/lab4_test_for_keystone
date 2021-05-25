@@ -44,8 +44,7 @@ def click_cancel_button(self):
 
 # on edit_post_page
 def click_go_back_to_posts_page_button(self):
-    self.driver.find_element_by_xpath(
-        '//*[contains(@data-e2e-editform-header-back, "true") and contains(@href, "/keystone/posts")]').click()
+    self.driver.find_element_by_xpath('//*[@href="/keystone/posts" and @class="css-dmf4a8"]').click()
 
 
 def click_a_post(self, post_name):
