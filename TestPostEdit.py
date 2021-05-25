@@ -6,8 +6,9 @@ import unittest
 from selenium.webdriver.common.keys import Keys
 
 from TestPostCreate import sign_in_as_admin, go_to_posts_page_from_admin_ui_page, create_a_post, delete_a_post, \
-    go_back_to_posts_page_from_edit_page, go_back_to_home_page_from_sign_in_page, sign_out
-from keywords.wait_until_is_visible import wait_until_home_page_is_visible, wait_until_input_select_is_visible
+    go_back_to_posts_page_from_edit_page, go_back_to_home_page_from_sign_in_page, sign_out, scroll_page
+from keywords.wait_until_is_visible import wait_until_home_page_is_visible, wait_until_input_select_is_visible, \
+    wait_until_reset_warning_dialog, wait_until_edit_post_page_is_visible
 
 
 def click_post_state_select_arrow(self):
@@ -34,6 +35,10 @@ def input_select_post_author(self, post_author):
 
 def click_save_button(self):
     self.driver.find_element_by_xpath('//*[@data-button = "update"]').click()
+
+
+def click_reset_changes_button(self):
+    self.driver.find_element_by_xpath('//*[@data-button="reset"]').click()
 
 
 ##############################################################################################
@@ -123,6 +128,46 @@ def verify_edit_post_content_brief_successfully(self, post_content_brief):
 
 
 def verify_edit_post_content_extended_successfully(self, post_content_extended):
+    self.driver.switch_to.frame(1)
+    assert post_content_extended in self.driver.find_element_by_xpath('//*[@id="tinymce"]').text
+    self.driver.switch_to.default_content()
+
+
+# on reset dialog
+def click_reset_button(self):
+    self.driver.find_element_by_xpath('//*[@data-button-type="confirm"]').click()
+
+
+def edit_post_reset_changes(self):
+    click_reset_changes_button(self)
+    wait_until_reset_warning_dialog(self)
+    click_reset_button(self)
+    wait_until_edit_post_page_is_visible(self)
+
+
+def verify_reset_post_state_successfully(self, post_state):
+    assert post_state in self.driver.find_element_by_xpath(
+        '//*[contains(@class, "css-1wrt3l9") and @for="state"]//*[@class="Select-value-label"]').text
+
+
+def verify_reset_post_author_successfully(self, post_author):
+    assert post_author not in self.driver.find_element_by_xpath(
+        '//*[@class="Select-value-label" and text()=' + post_author + ']').text
+
+
+def verify_reset_post_published_date_successfully(self, post_published_date):
+    assert post_published_date in self.driver.find_element_by_xpath(
+        '//*[contains(@class, "css-1wrt3l9") and @for="publishedDate"]//*[@name="publishedDate"]').get_attribute(
+        'value')  # todo: [contains(@class, "css-1wrt3l9") 可不用contains?
+
+
+def verify_reset_post_content_brief_successfully(self, post_content_brief):
+    self.driver.switch_to.frame(0)
+    assert post_content_brief in self.driver.find_element_by_xpath('//*[@id="tinymce"]').text
+    self.driver.switch_to.default_content()
+
+
+def verify_reset_post_content_extended_successfully(self, post_content_extended):
     self.driver.switch_to.frame(1)
     assert post_content_extended in self.driver.find_element_by_xpath('//*[@id="tinymce"]').text
     self.driver.switch_to.default_content()
@@ -353,7 +398,25 @@ class TestPostEdit(unittest.TestCase):
         verify_edit_post_content_brief_successfully(self, post_content_brief)
         verify_edit_post_content_extended_successfully(self, post_content_extended)
 
-    # def test_edit_post_and_reset_changeds(self):
+    def test_edit_post_and_reset_changeds(self):
+        post_state = 'Archived'
+        post_author = 'Demo User'
+        post_published_date = '2021-05-25'  # todo: error日期  # todo: today_button
+        post_content_brief = 'post_content_brief'
+        post_content_extended = 'post_content_extended'
+        input_post_state(self, post_state)
+        input_post_author(self, post_author)
+        input_post_published_date(self, post_published_date)
+        input_post_content_brief(self, post_content_brief)
+        input_post_content_extended(self, post_content_extended)
+        edit_post_reset_changes(self)
+        scroll_page(self, 0)
+        time.sleep(2)
+        verify_reset_post_state_successfully(self, 'Draft')
+        # verify_reset_post_author_successfully(self, post_author)  # todo: how to verify
+        verify_reset_post_published_date_successfully(self, '2021-05-25')
+        verify_reset_post_content_brief_successfully(self, '')
+        verify_reset_post_content_extended_successfully(self, '')
 
     def tearDown(self) -> None:
         post_name = 'abc'

@@ -45,6 +45,11 @@ def wait_until_delete_warning_dialog(self):
                                         '//*[contains(@data-button-type, "confirm") and contains(text(), "Delete")]')
 
 
+def wait_until_reset_warning_dialog(self):
+    wait_until_element_visible_by_xpath(self,
+                                        '//*[contains(@data-button-type, "confirm") and contains(text(), "Reset")]')
+
+
 # element
 def wait_until_delete_button_on_edit_post_page_is_visible(self):
     wait_until_element_visible_by_xpath(self, '//*[contains(@data-button, "delete")]')
@@ -55,4 +60,5 @@ def wait_until_name_is_required_is_visible(self):
 
 
 def wait_until_input_select_is_visible(self):
-    wait_until_element_visible_by_xpath(self, '//*[contains(@class, "css-1wrt3l9") and @for="author"]//*[contains(@aria-activedescendant, "react-select")]')
+    wait_until_element_visible_by_xpath(self,
+                                        '//*[contains(@class, "css-1wrt3l9") and @for="author"]//*[contains(@aria-activedescendant, "react-select")]')
