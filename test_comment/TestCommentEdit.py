@@ -5,9 +5,9 @@ import unittest
 
 from selenium.webdriver.common.keys import Keys
 
-from keywords.wait_until_is_visible import wait_until_home_page_is_visible
+from keywords.wait_until_is_visible import wait_until_home_page_is_visible, wait_until_admin_ui_page_is_visible
 from test_comment.TestCommentCreate import go_to_comments_page_from_admin_ui_page, create_a_comment, \
-    input_comment_author, input_comment_post, go_to_admin_ui_page_from_posts_page
+    input_comment_author, input_comment_post, go_to_admin_ui_page_from_comments_page, verify_comments_page_have_comment
 from test_post.TestPostCreate import sign_in_as_admin, sign_out, go_back_to_home_page_from_sign_in_page, create_a_post, \
     go_to_posts_page_from_admin_ui_page
 
@@ -49,6 +49,11 @@ def input_comment_content(self, comment_content):
     self.driver.switch_to.default_content()
 
 
+def verify_edit_comment_successfully(self):
+    assert 'Your changes have been saved successfully' in self.driver.find_element_by_xpath(  # todo: 包起來
+        '//*[@data-alert-type = "success"]').text
+
+
 class TestPostCreate(unittest.TestCase):
     driver = None
 
@@ -62,13 +67,13 @@ class TestPostCreate(unittest.TestCase):
         wait_until_home_page_is_visible(self)
         sign_in_as_admin(self)
 
-    def test_edit_comment_with_ISP_input1(self):
+    def test_edit_comment_with_ISP_input0(self):
         # create post
         go_to_posts_page_from_admin_ui_page(self)
         post_name = 'post_name'
         create_a_post(self, post_name)
 
-        go_to_admin_ui_page_from_posts_page(self)
+        go_to_admin_ui_page_from_comments_page(self)
 
         # create comment with post
         go_to_comments_page_from_admin_ui_page(self)
@@ -83,6 +88,239 @@ class TestPostCreate(unittest.TestCase):
         input_comment_state(self, comment_state)
         input_comment_content(self, comment_content)
         save_edit_comment(self)
+
+    def test_edit_comment_with_ISP_input1(self):
+        # create post
+        go_to_posts_page_from_admin_ui_page(self)  # todo: 整理page
+        post_name = 'post_name'
+        create_a_post(self, post_name)
+
+        go_to_admin_ui_page_from_comments_page(self)
+
+        go_to_comments_page_from_admin_ui_page(self)
+        comment_author = 'Demo User'
+        post_name = 'post_name'
+        create_a_comment(self, comment_author, post_name)
+
+        # Edit comment
+        comment_content = ""
+        comment_state = 'Pu'
+        input_comment_author(self, comment_author)
+        input_comment_post(self, post_name)
+        input_comment_state(self, comment_state)
+        input_comment_content(self, comment_content)
+        save_edit_comment(self)
+        assert 'Your changes have been saved successfully' in self.driver.find_element_by_xpath(
+            '//*[@class= "css-ctpeu"]').text
+        self.driver.back()  # todo: back?
+        comment_id = self.driver.find_element_by_xpath('//*[contains(@href, "/keystone/post-comments/")]').text
+        verify_comments_page_have_comment(self, comment_id)
+
+    def test_edit_comment_with_ISP_input2(self):
+        # create post
+        go_to_posts_page_from_admin_ui_page(self)  # todo: 整理page
+        post_name = 'post_name'
+        create_a_post(self, post_name)
+
+        go_to_admin_ui_page_from_comments_page(self)
+
+        go_to_comments_page_from_admin_ui_page(self)
+        comment_author = 'Demo User'
+        post_name = 'post_name'
+        create_a_comment(self, comment_author, post_name)
+
+        # Edit comment
+        comment_content = "comment_content"
+        comment_state = 'Draft'
+        input_comment_author(self, comment_author)
+        input_comment_post(self, post_name)
+        input_comment_state(self, comment_state)
+        input_comment_content(self, comment_content)
+        save_edit_comment(self)
+        verify_edit_comment_successfully(self)
+        self.driver.back()  # todo: back?
+        comment_id = self.driver.find_element_by_xpath('//*[contains(@href, "/keystone/post-comments/")]').text
+        verify_comments_page_have_comment(self, comment_id)
+
+    def test_edit_comment_with_ISP_input3(self):
+        # create post
+        go_to_posts_page_from_admin_ui_page(self)  # todo: 整理page
+        post_name = 'post_name_post_name_post_name_post_name_post_name_post_name_post_name_post_name_post_name_post_name_post_name'
+        create_a_post(self, post_name)
+
+        go_to_admin_ui_page_from_comments_page(self)
+
+        go_to_comments_page_from_admin_ui_page(self)
+        comment_author = 'Demo User'
+        post_name = 'post_name'
+        create_a_comment(self, comment_author, post_name)
+
+        # Edit comment
+        comment_content = "comment_content_comment_contentcomment_contentcomment_contentcomment_contentcomment_contentcomment_contentcomment_contentcomment_contentcomment_contentcomment_contentcomment_contentcomment_contentcomment_contentcomment_contentcomment_contentcomment_contentcomment_contentcomment_contentcomment_contentcomment_contentcomment_contentcomment_contentcomment_contentcomment_contentcomment_contentcomment_contentcomment_contentcomment_contentcomment_contentcomment_contentcomment_contentcomment_contentcomment_contentcomment_contentcomment_contentcomment_contentcomment_contentcomment_contentcomment_contentcomment_content"
+        comment_state = 'Archived'
+        input_comment_author(self, comment_author)
+        input_comment_post(self, post_name)
+        input_comment_state(self, comment_state)
+        input_comment_content(self, comment_content)
+        save_edit_comment(self)
+        verify_edit_comment_successfully(self)
+        self.driver.back()  # todo: back?
+        comment_id = self.driver.find_element_by_xpath('//*[contains(@href, "/keystone/post-comments/")]').text
+        verify_comments_page_have_comment(self, comment_id)
+
+    def test_edit_comment_with_ISP_input4(self):
+        # create post
+        go_to_posts_page_from_admin_ui_page(self)  # todo: 整理page
+        post_name = 'post_name_post_name_post_name_post_name_post_name_post_name_post_name_post_name_post_name_post_name_post_name'
+        create_a_post(self, post_name)
+
+        go_to_admin_ui_page_from_comments_page(self)
+
+        go_to_comments_page_from_admin_ui_page(self)
+        comment_author = 'Demo User'
+        post_name = 'post_name'
+        create_a_comment(self, comment_author, post_name)
+
+        # Edit comment
+        comment_content = ""
+        comment_state = 'Draft'
+        input_comment_author(self, comment_author)
+        input_comment_post(self, post_name)
+        input_comment_state(self, comment_state)
+        input_comment_content(self, comment_content)
+        save_edit_comment(self)
+        verify_edit_comment_successfully(self)
+        self.driver.back()  # todo: back?
+        comment_id = self.driver.find_element_by_xpath('//*[contains(@href, "/keystone/post-comments/")]').text
+        verify_comments_page_have_comment(self, comment_id)
+
+    def test_edit_comment_with_ISP_input5(self):
+        # create post
+        go_to_posts_page_from_admin_ui_page(self)  # todo: 整理page
+        post_name = 'post_name'
+        create_a_post(self, post_name)
+
+        go_to_admin_ui_page_from_comments_page(self)
+
+        go_to_comments_page_from_admin_ui_page(self)
+        comment_author = 'Demo User'
+        post_name = 'post_name'
+        create_a_comment(self, comment_author, post_name)
+
+        # Edit comment
+        comment_content = "comment_content_comment_contentcomment_contentcomment_contentcomment_contentcomment_contentcomment_contentcomment_contentcomment_contentcomment_contentcomment_contentcomment_contentcomment_contentcomment_contentcomment_contentcomment_contentcomment_contentcomment_contentcomment_contentcomment_contentcomment_contentcomment_contentcomment_contentcomment_contentcomment_contentcomment_contentcomment_contentcomment_contentcomment_contentcomment_contentcomment_contentcomment_contentcomment_contentcomment_contentcomment_contentcomment_contentcomment_contentcomment_contentcomment_contentcomment_contentcomment_content"
+        comment_state = 'Published'
+        input_comment_author(self, comment_author)
+        input_comment_post(self, post_name)
+        input_comment_state(self, comment_state)
+        input_comment_content(self, comment_content)
+        save_edit_comment(self)
+        verify_edit_comment_successfully(self)
+        self.driver.back()  # todo: back?
+        comment_id = self.driver.find_element_by_xpath('//*[contains(@href, "/keystone/post-comments/")]').text
+        verify_comments_page_have_comment(self, comment_id)
+
+    def test_edit_comment_with_ISP_input6(self):
+        # create post
+        go_to_posts_page_from_admin_ui_page(self)  # todo: 整理page
+        post_name = 'post_name'
+        create_a_post(self, post_name)
+
+        go_to_admin_ui_page_from_comments_page(self)
+
+        go_to_comments_page_from_admin_ui_page(self)
+        comment_author = 'Demo User'
+        post_name = 'post_name'
+        create_a_comment(self, comment_author, post_name)
+
+        # Edit comment
+        comment_content = "comment_content"
+        comment_state = 'Archived'
+        input_comment_author(self, comment_author)
+        input_comment_post(self, post_name)
+        input_comment_state(self, comment_state)
+        input_comment_content(self, comment_content)
+        save_edit_comment(self)
+        verify_edit_comment_successfully(self)
+        self.driver.back()  # todo: back?
+        comment_id = self.driver.find_element_by_xpath('//*[contains(@href, "/keystone/post-comments/")]').text
+        verify_comments_page_have_comment(self, comment_id)
+
+    def test_edit_comment_with_ISP_input7(self):
+        # create post
+        go_to_posts_page_from_admin_ui_page(self)  # todo: 整理page
+        post_name = 'post_name'
+        create_a_post(self, post_name)
+
+        go_to_admin_ui_page_from_comments_page(self)
+
+        go_to_comments_page_from_admin_ui_page(self)
+        comment_author = 'Demo User'
+        post_name = 'post_name'
+        create_a_comment(self, comment_author, post_name)
+
+        # Edit comment
+        comment_content = "comment_content_comment_contentcomment_contentcomment_contentcomment_contentcomment_contentcomment_contentcomment_contentcomment_contentcomment_contentcomment_contentcomment_contentcomment_contentcomment_contentcomment_contentcomment_contentcomment_contentcomment_contentcomment_contentcomment_contentcomment_contentcomment_contentcomment_contentcomment_contentcomment_contentcomment_contentcomment_contentcomment_contentcomment_contentcomment_contentcomment_contentcomment_contentcomment_contentcomment_contentcomment_contentcomment_contentcomment_contentcomment_contentcomment_contentcomment_contentcomment_content"
+        comment_state = 'Draft'
+        input_comment_author(self, comment_author)
+        input_comment_post(self, post_name)
+        input_comment_state(self, comment_state)
+        input_comment_content(self, comment_content)
+        save_edit_comment(self)
+        verify_edit_comment_successfully(self)
+        self.driver.back()  # todo: back?
+        comment_id = self.driver.find_element_by_xpath('//*[contains(@href, "/keystone/post-comments/")]').text
+        verify_comments_page_have_comment(self, comment_id)
+
+    def test_edit_comment_with_ISP_input8(self):
+        # create post
+        go_to_posts_page_from_admin_ui_page(self)  # todo: 整理page
+        post_name = 'post_name'
+        create_a_post(self, post_name)
+
+        go_to_admin_ui_page_from_comments_page(self)
+
+        go_to_comments_page_from_admin_ui_page(self)
+        comment_author = 'Demo User'
+        create_a_comment(self, comment_author, post_name)
+
+        # Edit comment
+        comment_content = ""
+        comment_state = 'Archieved'
+        input_comment_author(self, comment_author)
+        input_comment_post(self, post_name)
+        input_comment_state(self, comment_state)
+        input_comment_content(self, comment_content)
+        save_edit_comment(self)
+        verify_edit_comment_successfully(self)
+        self.driver.back()  # todo: back?
+        comment_id = self.driver.find_element_by_xpath('//*[contains(@href, "/keystone/post-comments/")]').text
+        verify_comments_page_have_comment(self, comment_id)
+
+    def test_edit_comment_with_ISP_input9(self):
+        # create post
+        go_to_posts_page_from_admin_ui_page(self)  # todo: 整理page
+        post_name = 'post_name_post_name_post_name_post_name_post_name_post_name_post_name_post_name_post_name_post_name_post_name_post_name_post_name_post_name_post_name_post_name'
+        create_a_post(self, post_name)
+
+        go_to_admin_ui_page_from_comments_page(self)
+
+        go_to_comments_page_from_admin_ui_page(self)
+        comment_author = 'Demo User'
+        create_a_comment(self, comment_author, post_name)
+
+        # Edit comment
+        comment_content = "comment_content"
+        comment_state = 'Published'
+        input_comment_author(self, comment_author)
+        input_comment_post(self, post_name)
+        input_comment_state(self, comment_state)
+        input_comment_content(self, comment_content)
+        save_edit_comment(self)
+        verify_edit_comment_successfully(self)
+        self.driver.back()  # todo: back?
+        comment_id = self.driver.find_element_by_xpath('//*[contains(@href, "/keystone/post-comments/")]').text
+        verify_comments_page_have_comment(self, comment_id)
 
     def tearDown(self) -> None:
         # todo: delete all post?

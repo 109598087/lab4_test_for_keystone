@@ -75,7 +75,7 @@ def verify_comments_page_have_comment(self, comment_id):
     self.assertTrue(self.driver.find_element_by_link_text('Demo User') is not None)
 
 
-def go_to_admin_ui_page_from_posts_page(self):
+def go_to_admin_ui_page_from_comments_page(self):
     self.driver.find_element_by_xpath('//*[@href="/keystone"]').click()
     wait_until_admin_ui_page_is_visible(self)
 
@@ -108,7 +108,7 @@ class TestCommentCreate(unittest.TestCase):
         go_to_posts_page_from_admin_ui_page(self)
         post_name = "post_name_post_name_post_name_post_npost"
         create_a_post(self, post_name)
-        go_to_admin_ui_page_from_posts_page(self)
+        go_to_admin_ui_page_from_comments_page(self)
         go_to_comments_page_from_admin_ui_page(self)
         comment_author = 'Demo User'
         create_a_comment(self, comment_author, post_name)
@@ -122,7 +122,7 @@ class TestCommentCreate(unittest.TestCase):
         go_to_posts_page_from_admin_ui_page(self)
         post_name = "post_name_post_name_post_name_post_npost_post_name_post_name_post_name_post_npost_post_name_post_name_post_name_post_npost"
         create_a_post(self, post_name)
-        go_to_admin_ui_page_from_posts_page(self)
+        go_to_admin_ui_page_from_comments_page(self)
         go_to_comments_page_from_admin_ui_page(self)
         comment_author = 'Demo User'
         create_a_comment(self, comment_author, post_name)
@@ -136,7 +136,7 @@ class TestCommentCreate(unittest.TestCase):
         go_to_posts_page_from_admin_ui_page(self)
         post_name = "post_name"
         create_a_post(self, post_name)
-        go_to_admin_ui_page_from_posts_page(self)
+        go_to_admin_ui_page_from_comments_page(self)
         go_to_comments_page_from_admin_ui_page(self)
         comment_author = 'Demo User'
         click_create_comment_button(self)
