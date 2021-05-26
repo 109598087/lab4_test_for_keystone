@@ -35,6 +35,10 @@ def wait_until_edit_post_page_is_visible(self):
                                         '//*[contains(@data-e2e-editform-header-back, "true") and contains(@href, "/keystone/posts")]')
 
 
+def wait_until_comments_page_is_visible(self):
+    wait_until_element_visible_by_xpath(self, '//*[contains(text(), "Create ")]')
+
+
 # dialog
 def wait_until_create_a_new_post_dialog_is_visible(self):
     wait_until_element_visible_by_name(self, 'name')

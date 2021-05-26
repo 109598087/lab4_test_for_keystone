@@ -7,13 +7,13 @@ from selenium.webdriver.common.keys import Keys
 
 from keywords.on_admin_ui_page import click_a_dashboard_button
 from keywords.wait_until_is_visible import wait_until_home_page_is_visible, wait_until_posts_page_is_visible, \
-    wait_until_element_visible_by_xpath
+    wait_until_element_visible_by_xpath, wait_until_comments_page_is_visible, wait_until_admin_ui_page_is_visible
 from test_post.TestPostCreate import sign_in_as_admin, sign_out, go_back_to_home_page_from_sign_in_page, \
-    click_create_submit_button
+    click_create_submit_button, go_to_posts_page_from_admin_ui_page, create_a_post
 
 
 # on posts_page -> admin_ui_page
-def go_to_posts_page_from_admin_ui_page(self):
+def go_to_comments_page_from_admin_ui_page(self):
     click_a_dashboard_button(self, 'Posts', 'Comments')
     wait_until_posts_page_is_visible(self)
 
@@ -60,6 +60,22 @@ def create_a_comment(self, comment_author, post_name):
     click_create_submit_button(self)
 
 
+def go_back_to_comments_page(self):
+    self.driver.find_element_by_link_text('Comments').click()
+    wait_until_comments_page_is_visible(self)
+
+
+def verify_comments_page_have_comment(self, comment_id):
+    self.assertTrue(self.driver.find_element_by_xpath(
+        '//*[contains(@href, "/keystone/post-comments/' + comment_id + '")]') is not None)
+    self.assertTrue(self.driver.find_element_by_link_text('Demo User') is not None)
+
+
+def go_to_admin_ui_page_from_posts_page(self):
+    self.driver.find_element_by_xpath('//*[@href="/keystone"]').click()
+    wait_until_admin_ui_page_is_visible(self)
+
+
 class TestCommentCreate(unittest.TestCase):
     driver = None
 
@@ -73,11 +89,41 @@ class TestCommentCreate(unittest.TestCase):
         wait_until_home_page_is_visible(self)
         sign_in_as_admin(self)
 
-    def test_create_comment_with_ISP_input(self):
-        go_to_posts_page_from_admin_ui_page(self)
+    def test_create_comment_with_ISP_input1(self):
+        go_to_comments_page_from_admin_ui_page(self)
         comment_author = 'Demo User'
-        post_name = 'for_comment'
+        post_name = 'no_this_post'
         create_a_comment(self, comment_author, post_name)
+        go_back_to_comments_page(self)
+        comment_id = self.driver.find_element_by_xpath('//*[contains(@href, "/keystone/post-comments/")]').text
+        verify_comments_page_have_comment(self, comment_id)
+        print("test_create_comment_with_ISP_input1 ok")
+
+    def test_create_comment_with_ISP_input2(self):
+        go_to_posts_page_from_admin_ui_page(self)
+        post_name = "post_name_post_name_post_name_post_npost"
+        create_a_post(self, post_name)
+        go_to_admin_ui_page_from_posts_page(self)
+        go_to_comments_page_from_admin_ui_page(self)
+        comment_author = 'Demo User'
+        create_a_comment(self, comment_author, post_name)
+        go_back_to_comments_page(self)
+        comment_id = self.driver.find_element_by_xpath('//*[contains(@href, "/keystone/post-comments/")]').text
+        verify_comments_page_have_comment(self, comment_id)
+        print("test_create_comment_with_ISP_input1 ok")
+
+    def test_create_comment_with_ISP_input3(self):
+        go_to_posts_page_from_admin_ui_page(self)
+        post_name = "post_name_post_name_post_name_post_npost_post_name_post_name_post_name_post_npost_post_name_post_name_post_name_post_npost"
+        create_a_post(self, post_name)
+        go_to_admin_ui_page_from_posts_page(self)
+        go_to_comments_page_from_admin_ui_page(self)
+        comment_author = 'Demo User'
+        create_a_comment(self, comment_author, post_name)
+        go_back_to_comments_page(self)
+        comment_id = self.driver.find_element_by_xpath('//*[contains(@href, "/keystone/post-comments/")]').text
+        verify_comments_page_have_comment(self, comment_id)
+        print("test_create_comment_with_ISP_input1 ok")
 
     def tearDown(self) -> None:
         # todo: delete all comment?
