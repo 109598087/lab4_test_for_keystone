@@ -174,25 +174,25 @@ class TestPostCreate(unittest.TestCase):
         print('test_create_post_with_empty_post_name_and_fail ok')
 
     def test_create_post_with_more_than_0_and_less_than_or_equal_to_50_post_name_length_successfully(self):
-        past_name = 'abc'
+        post_name = 'abc'
         go_to_posts_page_from_admin_ui_page(self)
-        create_a_post(self, past_name)
+        create_a_post(self, post_name)
         go_back_to_posts_page_from_edit_page(self)
-        verify_posts_page_have_post(self, past_name)
+        verify_posts_page_have_post(self, post_name)
         ##############
         # teardown
-        delete_a_post(self, past_name)
+        delete_a_post(self, post_name)
         print('test_create_post_with_more_than_0_and_less_than_or_equal_to_50_post_name_length_successfully ok')
 
     def test_create_post_with_more_than_50_post_name_length_successfully(self):
-        past_name = '01234567890123456789012345678901234567890123456789abcbasdfasdfasdf'
+        post_name = '01234567890123456789012345678901234567890123456789abcbasdfasdfasdf'
         go_to_posts_page_from_admin_ui_page(self)
-        create_a_post(self, past_name)
+        create_a_post(self, post_name)
         go_back_to_posts_page_from_edit_page(self)
-        verify_posts_page_have_post(self, past_name)
+        verify_posts_page_have_post(self, post_name)
         ##############
         # teardown
-        delete_a_post(self, past_name)
+        delete_a_post(self, post_name)
         print('test_create_post_with_more_than_50_post_name_length_successfully ok')
 
     def test_create_post_click_cancel_button_and_post_should_not_be_create(self):
