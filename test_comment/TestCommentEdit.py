@@ -1,0 +1,94 @@
+import time
+
+from selenium import webdriver
+import unittest
+
+from selenium.webdriver.common.keys import Keys
+
+from keywords.wait_until_is_visible import wait_until_home_page_is_visible
+from test_comment.TestCommentCreate import go_to_comments_page_from_admin_ui_page, create_a_comment, \
+    input_comment_author, input_comment_post, go_to_admin_ui_page_from_posts_page
+from test_post.TestPostCreate import sign_in_as_admin, sign_out, go_back_to_home_page_from_sign_in_page, create_a_post, \
+    go_to_posts_page_from_admin_ui_page
+
+
+# from test_post.TestPostEdit import click_save_button
+
+
+def click_comment_state_select_arrow(self):
+    self.driver.find_element_by_xpath(
+        '//*[contains(@class, "css-1wrt3l9") and @for="commentState"]//*[@class = "Select-arrow"]').click()
+
+
+def input_select_comment_state(self, comment_state):
+    self.driver.find_element_by_xpath(
+        '//*[contains(@class, "css-1wrt3l9") and @for="commentState"]//*[contains(@aria-activedescendant, "react-select")]') \
+        .send_keys(comment_state)
+
+
+def click_save_button(self):
+    self.driver.find_element_by_xpath('//*[@data-button = "update"]').click()
+
+
+##############################################################
+def input_comment_state(self, comment_state):
+    time.sleep(5)
+    click_comment_state_select_arrow(self)
+    input_select_comment_state(self, comment_state)
+    input_select_comment_state(self, Keys.ENTER)
+
+
+def save_edit_comment(self):
+    click_save_button(self)
+
+
+def input_comment_content(self, comment_content):
+    self.driver.switch_to.frame(0)
+    self.driver.find_element_by_tag_name('body').send_keys(comment_content)
+    self.driver.switch_to.default_content()
+
+
+class TestPostCreate(unittest.TestCase):
+    driver = None
+
+    @classmethod
+    def setUpClass(cls) -> None:
+        cls.driver = webdriver.Chrome('../chromedriver.exe')
+
+    def setUp(self) -> None:
+        self.driver.get('http://127.0.0.1:3000/')
+        self.driver.maximize_window()
+        wait_until_home_page_is_visible(self)
+        sign_in_as_admin(self)
+
+    def test_edit_comment_with_ISP_input1(self):
+        # create post
+        go_to_posts_page_from_admin_ui_page(self)
+        post_name = 'post_name'
+        create_a_post(self, post_name)
+
+        go_to_admin_ui_page_from_posts_page(self)
+
+        # create comment with post
+        go_to_comments_page_from_admin_ui_page(self)
+        comment_author = 'Demo User'
+        create_a_comment(self, comment_author, post_name)
+
+        # Edit comment
+        comment_content = "comment_content"
+        comment_state = 'Pu'
+        input_comment_author(self, comment_author)
+        input_comment_post(self, post_name)
+        input_comment_state(self, comment_state)
+        input_comment_content(self, comment_content)
+        save_edit_comment(self)
+
+    def tearDown(self) -> None:
+        # todo: delete all post?
+        sign_out(self)
+        go_back_to_home_page_from_sign_in_page(self)
+
+    @classmethod
+    def tearDownClass(cls) -> None:
+        cls.driver.close()
+        cls.driver.quit()

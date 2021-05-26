@@ -8,7 +8,8 @@ from selenium.webdriver.common.keys import Keys
 
 from keywords.on_admin_ui_page import click_a_dashboard_button
 from keywords.wait_until_is_visible import wait_until_home_page_is_visible, wait_until_posts_page_is_visible, \
-    wait_until_element_visible_by_xpath, wait_until_comments_page_is_visible, wait_until_admin_ui_page_is_visible
+    wait_until_element_visible_by_xpath, wait_until_comments_page_is_visible, wait_until_admin_ui_page_is_visible, \
+    wait_until_edit_comment_page_is_visible
 from test_post.TestPostCreate import sign_in_as_admin, sign_out, go_back_to_home_page_from_sign_in_page, \
     click_create_submit_button, go_to_posts_page_from_admin_ui_page, create_a_post, click_cancel_button
 
@@ -43,6 +44,7 @@ def input_comment_post(self, post_name):
     self.driver.find_element_by_xpath(
         '//*[contains(@class, "css-1wrt3l9") and @for="post"]//*[contains(@aria-activedescendant, "react-select")]') \
         .send_keys(post_name)
+    time.sleep(2)  # todo: wait
     self.driver.find_element_by_xpath(
         '//*[contains(@class, "css-1wrt3l9") and @for="post"]//*[contains(@aria-activedescendant, "react-select")]') \
         .send_keys(Keys.ENTER)
@@ -59,6 +61,7 @@ def create_a_comment(self, comment_author, post_name):
     input_comment_author(self, comment_author)
     input_comment_post(self, post_name)
     click_create_submit_button(self)
+    wait_until_edit_comment_page_is_visible(self)
 
 
 def go_back_to_comments_page(self):
