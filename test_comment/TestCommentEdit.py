@@ -67,28 +67,6 @@ class TestPostCreate(unittest.TestCase):
         wait_until_home_page_is_visible(self)
         sign_in_as_admin(self)
 
-    def test_edit_comment_with_ISP_input0(self):
-        # create post
-        go_to_posts_page_from_admin_ui_page(self)
-        post_name = 'post_name'
-        create_a_post(self, post_name)
-
-        go_to_admin_ui_page_from_comments_page(self)
-
-        # create comment with post
-        go_to_comments_page_from_admin_ui_page(self)
-        comment_author = 'Demo User'
-        create_a_comment(self, comment_author, post_name)
-
-        # Edit comment
-        comment_content = "comment_content"
-        comment_state = 'Pu'
-        input_comment_author(self, comment_author)
-        input_comment_post(self, post_name)
-        input_comment_state(self, comment_state)
-        input_comment_content(self, comment_content)
-        save_edit_comment(self)
-
     def test_edit_comment_with_ISP_input1(self):
         # create post
         go_to_posts_page_from_admin_ui_page(self)  # todo: 整理page
@@ -115,6 +93,7 @@ class TestPostCreate(unittest.TestCase):
         self.driver.back()  # todo: back?
         comment_id = self.driver.find_element_by_xpath('//*[contains(@href, "/keystone/post-comments/")]').text
         verify_comments_page_have_comment(self, comment_id)
+        print('test_edit_comment_with_ISP_input ok')
 
     def test_edit_comment_with_ISP_input2(self):
         # create post
@@ -141,6 +120,7 @@ class TestPostCreate(unittest.TestCase):
         self.driver.back()  # todo: back?
         comment_id = self.driver.find_element_by_xpath('//*[contains(@href, "/keystone/post-comments/")]').text
         verify_comments_page_have_comment(self, comment_id)
+        print('test_edit_comment_with_ISP_input ok')
 
     def test_edit_comment_with_ISP_input3(self):
         # create post
@@ -167,6 +147,7 @@ class TestPostCreate(unittest.TestCase):
         self.driver.back()  # todo: back?
         comment_id = self.driver.find_element_by_xpath('//*[contains(@href, "/keystone/post-comments/")]').text
         verify_comments_page_have_comment(self, comment_id)
+        print('test_edit_comment_with_ISP_input ok')
 
     def test_edit_comment_with_ISP_input4(self):
         # create post
@@ -193,6 +174,7 @@ class TestPostCreate(unittest.TestCase):
         self.driver.back()  # todo: back?
         comment_id = self.driver.find_element_by_xpath('//*[contains(@href, "/keystone/post-comments/")]').text
         verify_comments_page_have_comment(self, comment_id)
+        print('test_edit_comment_with_ISP_input ok')
 
     def test_edit_comment_with_ISP_input5(self):
         # create post
@@ -219,6 +201,7 @@ class TestPostCreate(unittest.TestCase):
         self.driver.back()  # todo: back?
         comment_id = self.driver.find_element_by_xpath('//*[contains(@href, "/keystone/post-comments/")]').text
         verify_comments_page_have_comment(self, comment_id)
+        print('test_edit_comment_with_ISP_input ok')
 
     def test_edit_comment_with_ISP_input6(self):
         # create post
@@ -245,6 +228,7 @@ class TestPostCreate(unittest.TestCase):
         self.driver.back()  # todo: back?
         comment_id = self.driver.find_element_by_xpath('//*[contains(@href, "/keystone/post-comments/")]').text
         verify_comments_page_have_comment(self, comment_id)
+        print('test_edit_comment_with_ISP_input ok')
 
     def test_edit_comment_with_ISP_input7(self):
         # create post
@@ -271,6 +255,7 @@ class TestPostCreate(unittest.TestCase):
         self.driver.back()  # todo: back?
         comment_id = self.driver.find_element_by_xpath('//*[contains(@href, "/keystone/post-comments/")]').text
         verify_comments_page_have_comment(self, comment_id)
+        print('test_edit_comment_with_ISP_input ok')
 
     def test_edit_comment_with_ISP_input8(self):
         # create post
@@ -296,6 +281,7 @@ class TestPostCreate(unittest.TestCase):
         self.driver.back()  # todo: back?
         comment_id = self.driver.find_element_by_xpath('//*[contains(@href, "/keystone/post-comments/")]').text
         verify_comments_page_have_comment(self, comment_id)
+        print('test_edit_comment_with_ISP_input ok')
 
     def test_edit_comment_with_ISP_input9(self):
         # create post
@@ -321,6 +307,7 @@ class TestPostCreate(unittest.TestCase):
         self.driver.back()  # todo: back?
         comment_id = self.driver.find_element_by_xpath('//*[contains(@href, "/keystone/post-comments/")]').text
         verify_comments_page_have_comment(self, comment_id)
+        print('test_edit_comment_with_ISP_input ok')
 
     def tearDown(self) -> None:
         # todo: delete all post?
