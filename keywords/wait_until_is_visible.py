@@ -44,6 +44,11 @@ def wait_until_edit_comment_page_is_visible(self):
                                         '//*[contains(@data-e2e-editform-header-back, "true") and contains(@href, "/keystone/post-comments")]')
 
 
+def wait_until_edie_user_page_is_visible(self):
+    wait_until_element_visible_by_xpath(self,
+                                        '//*[contains(@data-e2e-editform-header-back, "true") and contains(@href, "/keystone/users")]')
+
+
 # dialog
 def wait_until_create_a_new_post_dialog_is_visible(self):
     wait_until_element_visible_by_name(self, 'name')
@@ -57,6 +62,10 @@ def wait_until_delete_warning_dialog(self):
 def wait_until_reset_warning_dialog(self):
     wait_until_element_visible_by_xpath(self,
                                         '//*[contains(@data-button-type, "confirm") and contains(text(), "Reset")]')
+
+
+def wait_until_create_a_new_user_dialog_is_visible(self):
+    wait_until_element_visible_by_xpath(self, '//*[@data-screen-id="modal-dialog"]')
 
 
 # element
