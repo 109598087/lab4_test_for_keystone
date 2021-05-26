@@ -10,7 +10,7 @@ from keywords.wait_until_is_visible import wait_until_home_page_is_visible, wait
     wait_until_posts_page_is_visible, wait_until_edit_post_page_is_visible, \
     wait_until_create_a_new_post_dialog_is_visible, wait_until_sign_in_page_is_visible, \
     wait_until_delete_warning_dialog, wait_until_delete_button_on_edit_post_page_is_visible, \
-    wait_until_name_is_required_is_visible
+    wait_until_name_error_message_is_visible
 from keywords.on_admin_ui_page import click_a_dashboard_button
 
 
@@ -166,7 +166,7 @@ class TestPostCreate(unittest.TestCase):
         wait_until_create_a_new_post_dialog_is_visible(self)
         input_post_name(self, post_name)
         click_create_submit_button(self)
-        wait_until_name_is_required_is_visible(self)
+        wait_until_name_error_message_is_visible(self)
         assert 'Name is required' in self.driver.find_element_by_xpath('//*[contains(@data-alert-type, "danger")]').text
         ##############
         # teardown

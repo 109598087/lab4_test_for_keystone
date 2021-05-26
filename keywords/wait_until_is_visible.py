@@ -44,6 +44,10 @@ def wait_until_edit_comment_page_is_visible(self):
                                         '//*[contains(@data-e2e-editform-header-back, "true") and contains(@href, "/keystone/post-comments")]')
 
 
+def wait_until_users_page_is_visible(self):
+    wait_until_element_visible_by_xpath(self, '//*[contains(text(), "Create ")]')
+
+
 def wait_until_edie_user_page_is_visible(self):
     wait_until_element_visible_by_xpath(self,
                                         '//*[contains(@data-e2e-editform-header-back, "true") and contains(@href, "/keystone/users")]')
@@ -73,7 +77,7 @@ def wait_until_delete_button_on_edit_post_page_is_visible(self):
     wait_until_element_visible_by_xpath(self, '//*[contains(@data-button, "delete")]')
 
 
-def wait_until_name_is_required_is_visible(self):
+def wait_until_name_error_message_is_visible(self):
     wait_until_element_visible_by_xpath(self, '//*[contains(@data-alert-type, "danger")]')
 
 
