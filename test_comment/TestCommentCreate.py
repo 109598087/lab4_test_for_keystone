@@ -3,13 +3,14 @@ import time
 from selenium import webdriver
 import unittest
 
+from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.common.keys import Keys
 
 from keywords.on_admin_ui_page import click_a_dashboard_button
 from keywords.wait_until_is_visible import wait_until_home_page_is_visible, wait_until_posts_page_is_visible, \
     wait_until_element_visible_by_xpath, wait_until_comments_page_is_visible, wait_until_admin_ui_page_is_visible
 from test_post.TestPostCreate import sign_in_as_admin, sign_out, go_back_to_home_page_from_sign_in_page, \
-    click_create_submit_button, go_to_posts_page_from_admin_ui_page, create_a_post
+    click_create_submit_button, go_to_posts_page_from_admin_ui_page, create_a_post, click_cancel_button
 
 
 # on posts_page -> admin_ui_page
@@ -98,6 +99,7 @@ class TestCommentCreate(unittest.TestCase):
         comment_id = self.driver.find_element_by_xpath('//*[contains(@href, "/keystone/post-comments/")]').text
         verify_comments_page_have_comment(self, comment_id)
         print("test_create_comment_with_ISP_input1 ok")
+        # todo: teardown
 
     def test_create_comment_with_ISP_input2(self):
         go_to_posts_page_from_admin_ui_page(self)
@@ -110,7 +112,8 @@ class TestCommentCreate(unittest.TestCase):
         go_back_to_comments_page(self)
         comment_id = self.driver.find_element_by_xpath('//*[contains(@href, "/keystone/post-comments/")]').text
         verify_comments_page_have_comment(self, comment_id)
-        print("test_create_comment_with_ISP_input1 ok")
+        print("test_create_comment_with_ISP_input2 ok")
+        # todo: teardown
 
     def test_create_comment_with_ISP_input3(self):
         go_to_posts_page_from_admin_ui_page(self)
@@ -123,7 +126,34 @@ class TestCommentCreate(unittest.TestCase):
         go_back_to_comments_page(self)
         comment_id = self.driver.find_element_by_xpath('//*[contains(@href, "/keystone/post-comments/")]').text
         verify_comments_page_have_comment(self, comment_id)
-        print("test_create_comment_with_ISP_input1 ok")
+        print("test_create_comment_with_ISP_input3 ok")
+        # todo: teardown
+
+    def test_create_comment_and_cancel_with_post(self):
+        go_to_posts_page_from_admin_ui_page(self)
+        post_name = "post_name"
+        create_a_post(self, post_name)
+        go_to_admin_ui_page_from_posts_page(self)
+        go_to_comments_page_from_admin_ui_page(self)
+        comment_author = 'Demo User'
+        click_create_comment_button(self)
+        wait_until_create_a_new_comment_dialog_is_visible(self)
+        input_comment_author(self, comment_author)
+        input_comment_post(self, post_name)
+        click_cancel_button(self)
+        with self.assertRaises(NoSuchElementException):
+            self.driver.find_element_by_xpath('//*[contains(@href, "/keystone/post-comments/")]')
+        print("test_create_comment_and_cancel_with_post ok")
+
+    def test_create_comment_and_cancel_without_post(self):
+        go_to_comments_page_from_admin_ui_page(self)
+        comment_author = 'Demo User'
+        post_name = 'no_post'
+        create_a_comment(self, comment_author, post_name)
+        self.driver.back()  # todo: go_back
+        with self.assertRaises(NoSuchElementException):
+            self.driver.find_element_by_xpath('//*[contains(@href, "/keystone/post-comments/")]')
+        print("test_create_comment_and_cancel_with_post ok")
 
     def tearDown(self) -> None:
         # todo: delete all comment?
