@@ -32,9 +32,10 @@ def click_save_button(self):
 
 ##############################################################
 def input_comment_state(self, comment_state):
-    time.sleep(5)
     click_comment_state_select_arrow(self)
+    time.sleep(2)  # todo: wait
     input_select_comment_state(self, comment_state)
+    time.sleep(2)  # todo: wait
     input_select_comment_state(self, Keys.ENTER)
 
 
