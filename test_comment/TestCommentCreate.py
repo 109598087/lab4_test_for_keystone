@@ -29,6 +29,7 @@ def input_comment_author(self, comment_author):
     self.driver.find_element_by_xpath(
         '//*[contains(@class, "css-1wrt3l9") and @for="author"]//*[contains(@aria-activedescendant, "react-select")]') \
         .send_keys(comment_author)
+    time.sleep(2)  # todo: wait
     self.driver.find_element_by_xpath(
         '//*[contains(@class, "css-1wrt3l9") and @for="author"]//*[contains(@aria-activedescendant, "react-select")]') \
         .send_keys(Keys.ENTER)
