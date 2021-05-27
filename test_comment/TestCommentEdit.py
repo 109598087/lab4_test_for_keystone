@@ -283,31 +283,31 @@ class TestPostCreate(unittest.TestCase):
         verify_comments_page_have_comment(self, comment_id)
         print('test_edit_comment_with_ISP_input ok')
 
-    def test_edit_comment_with_ISP_input9(self):
-        # create post
-        go_to_posts_page_from_admin_ui_page(self)  # todo: 整理page
-        post_name = 'post_name_post_name_post_name_post_name_post_name_post_name_post_name_post_name_post_name_post_name_post_name_post_name_post_name_post_name_post_name_post_name'
-        create_a_post(self, post_name)
-
-        go_to_admin_ui_page_from_comments_page(self)
-
-        go_to_comments_page_from_admin_ui_page(self)
-        comment_author = 'Demo User'
-        create_a_comment(self, comment_author, post_name)
-
-        # Edit comment
-        comment_content = "comment_content"
-        comment_state = 'Published'
-        input_comment_author(self, comment_author)
-        input_comment_post(self, post_name)
-        input_comment_state(self, comment_state)
-        input_comment_content(self, comment_content)
-        save_edit_comment(self)
-        verify_edit_comment_successfully(self)
-        self.driver.back()  # todo: back?
-        comment_id = self.driver.find_element_by_xpath('//*[contains(@href, "/keystone/post-comments/")]').text
-        verify_comments_page_have_comment(self, comment_id)
-        print('test_edit_comment_with_ISP_input ok')
+    # def test_edit_comment_with_ISP_input9(self):
+    #     # create post
+    #     go_to_posts_page_from_admin_ui_page(self)  # todo: 整理page
+    #     post_name = 'post_name_post_name_post_name_post_name_post_name_post_name_post_name_post_name_post_name_post_name_post_name_post_name_post_name_post_name_post_name_post_name'
+    #     create_a_post(self, post_name)
+    #
+    #     go_to_admin_ui_page_from_comments_page(self)
+    #
+    #     go_to_comments_page_from_admin_ui_page(self)
+    #     comment_author = 'Demo User'
+    #     create_a_comment(self, comment_author, post_name)
+    #
+    #     # Edit comment
+    #     comment_content = "comment_content"
+    #     comment_state = 'Published'
+    #     input_comment_author(self, comment_author)
+    #     input_comment_post(self, post_name)
+    #     input_comment_state(self, comment_state)
+    #     input_comment_content(self, comment_content)
+    #     save_edit_comment(self)
+    #     verify_edit_comment_successfully(self)
+    #     self.driver.back()  # todo: back?
+    #     comment_id = self.driver.find_element_by_xpath('//*[contains(@href, "/keystone/post-comments/")]').text
+    #     verify_comments_page_have_comment(self, comment_id)
+    #     print('test_edit_comment_with_ISP_input ok')
 
     def tearDown(self) -> None:
         # todo: delete all post?

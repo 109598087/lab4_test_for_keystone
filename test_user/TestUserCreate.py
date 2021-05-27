@@ -146,6 +146,7 @@ class TestPostCreate(unittest.TestCase):
         assert 'Password must not be a common, frequently-used password.' in self.driver.find_element_by_xpath(
             '//*[@data-alert-type="danger"]').text
         click_close_button(self)
+        print('test_create_user_with_common_password ok')
 
     def test_create_user_with_wrong_password_confirm(self):
         go_to_users_page_from_admin_ui_page(self)
@@ -167,6 +168,7 @@ class TestPostCreate(unittest.TestCase):
         wait_until_name_error_message_is_visible(self)
         assert 'Passwords must match.' in self.driver.find_element_by_xpath('//*[@data-alert-type="danger"]').text
         click_close_button(self)
+        print('test_create_user_with_wrong_password_confirm ok')
 
     def tearDown(self) -> None:
         sign_out(self)
