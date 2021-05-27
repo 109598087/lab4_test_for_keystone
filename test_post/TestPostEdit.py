@@ -413,26 +413,26 @@ class TestPostEdit(unittest.TestCase):
         verify_edit_post_content_extended_successfully(self, post_content_extended)
         print('test_edit_post_with_ISP_input ok')
 
-    def test_edit_post_and_reset_changeds(self):
-        post_state = 'Archived'
-        post_author = 'Demo User'
-        post_published_date = '2021-05-25'  # todo: error日期  # todo: today_button
-        post_content_brief = 'post_content_brief'
-        post_content_extended = 'post_content_extended'
-        input_post_state(self, post_state)
-        input_post_author(self, post_author)
-        input_post_published_date(self, post_published_date)
-        input_post_content_brief(self, post_content_brief)
-        input_post_content_extended(self, post_content_extended)
-        edit_post_reset_changes(self)
-        scroll_page(self, 0)
-        time.sleep(2)
-        verify_reset_post_state_successfully(self, 'Draft')
-        # verify_reset_post_author_successfully(self, post_author)  # todo: how to verify
-        verify_reset_post_published_date_successfully(self, '2021-05-25')
-        verify_reset_post_content_brief_successfully(self, '')
-        verify_reset_post_content_extended_successfully(self, '')
-        print('test_edit_post_and_reset_changeds ok')
+    # def test_edit_post_and_reset_changeds(self):
+    #     post_state = 'Archived'
+    #     post_author = 'Demo User'
+    #     post_published_date = '2021-05-25'  # todo: error日期  # todo: today_button
+    #     post_content_brief = 'post_content_brief'
+    #     post_content_extended = 'post_content_extended'
+    #     input_post_state(self, post_state)
+    #     input_post_author(self, post_author)
+    #     input_post_published_date(self, post_published_date)
+    #     input_post_content_brief(self, post_content_brief)
+    #     input_post_content_extended(self, post_content_extended)
+    #     edit_post_reset_changes(self)
+    #     scroll_page(self, 0)
+    #     time.sleep(2)
+    #     verify_reset_post_state_successfully(self, 'Draft')
+    #     # verify_reset_post_author_successfully(self, post_author)  # todo: how to verify
+    #     verify_reset_post_published_date_successfully(self, '2021-05-25')
+    #     verify_reset_post_content_brief_successfully(self, '')
+    #     verify_reset_post_content_extended_successfully(self, '')
+    #     print('test_edit_post_and_reset_changeds ok')
 
     def test_edit_post_with_wrong_published_date(self):
         post_published_date = 'abc'  # todo: error日期  # todo: today_button

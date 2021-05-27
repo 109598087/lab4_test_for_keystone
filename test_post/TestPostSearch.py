@@ -28,6 +28,7 @@ class TestPostSearch(unittest.TestCase):
         self.driver.find_element_by_tag_name('input').send_keys(post_name1)
         self.assertTrue(len(self.driver.find_elements_by_link_text(post_name1)) > 0)
         print('test_search_post_with_ISP_input1 ok')
+        delete_a_post(self, post_name1)
 
     def test_search_post_with_ISP_input2(self):
         post_name2 = 'post_name_post_namepost_namepost_namepost_namepost_namepost_namepost_namepost_namepost_namepost_name'
@@ -36,12 +37,9 @@ class TestPostSearch(unittest.TestCase):
         self.driver.find_element_by_tag_name('input').send_keys(post_name2)
         self.assertTrue(len(self.driver.find_elements_by_link_text(post_name2)) > 0)
         print('test_search_post_with_ISP_input2 ok')
+        delete_a_post(self, post_name2)
 
     def tearDown(self) -> None:
-        post_name1 = 'post_name'
-        delete_a_post(self, post_name1)
-        post_name2 = 'post_name'
-        delete_a_post(self, post_name2)
         sign_out(self)
         go_back_to_home_page_from_sign_in_page(self)
 
