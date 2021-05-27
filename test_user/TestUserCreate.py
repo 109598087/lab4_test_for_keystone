@@ -176,4 +176,5 @@ class TestPostCreate(unittest.TestCase):
     def tearDownClass(cls) -> None:
         cls.driver.close()
         cls.driver.quit()
+
 # todo: add all test print
