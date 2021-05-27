@@ -48,7 +48,7 @@ def wait_until_users_page_is_visible(self):
     wait_until_element_visible_by_xpath(self, '//*[contains(text(), "Create ")]')
 
 
-def wait_until_edie_user_page_is_visible(self):
+def wait_until_edit_user_page_is_visible(self):
     wait_until_element_visible_by_xpath(self,
                                         '//*[contains(@data-e2e-editform-header-back, "true") and contains(@href, "/keystone/users")]')
 
