@@ -30,6 +30,7 @@ class TestPostDelete(unittest.TestCase):
         post_name1 = 'test'
         create_a_post(self, post_name1)
         self.driver.back()  # todo: 要移除?
+        time.sleep(1)
         delete_a_post(self, post_name1)
         with self.assertRaises(NoSuchElementException):
             self.driver.find_element_by_link_text(post_name1)
@@ -49,6 +50,7 @@ class TestPostDelete(unittest.TestCase):
         post_name1 = 'asdf'
         create_a_post(self, post_name1)
         self.driver.back()  # todo: 要移除?
+        time.sleep(1)
         read_a_post(self, post_name1)
         scroll_page(self, 10000)
         wait_until_delete_button_on_edit_post_page_is_visible(self)
@@ -56,6 +58,7 @@ class TestPostDelete(unittest.TestCase):
         wait_until_delete_warning_dialog(self)
         click_cancel_button(self)
         self.driver.back()
+        time.sleep(1)
         verify_posts_page_have_post(self, post_name1)
         print('test_create_post_click_cancel_button_and_post_should_not_be_create ok')
 

@@ -1,3 +1,4 @@
+import time
 import uuid
 from selenium import webdriver
 import unittest
@@ -80,6 +81,7 @@ class TestPostCreate(unittest.TestCase):
         click_create_submit_button(self)
         wait_until_edit_user_page_is_visible(self)
         self.driver.back()
+        time.sleep(1)
         self.assertTrue(self.driver.find_element_by_link_text(user_first_name + ' ' + user_last_name) is not None)
         print('test_create_user_successfully ok')
 

@@ -1,3 +1,5 @@
+import time
+
 from selenium import webdriver
 import unittest
 
@@ -25,6 +27,7 @@ class TestPostSearch(unittest.TestCase):
         post_name1 = 'post_name'  # todo: setup 錯地方?
         create_a_post(self, post_name1)
         self.driver.back()
+        time.sleep(1)
         self.driver.find_element_by_tag_name('input').send_keys(post_name1)
         self.assertTrue(len(self.driver.find_elements_by_link_text(post_name1)) > 0)
         print('test_search_post_with_ISP_input1 ok')
@@ -34,6 +37,7 @@ class TestPostSearch(unittest.TestCase):
         post_name2 = 'post_name_post_namepost_namepost_namepost_namepost_namepost_namepost_namepost_namepost_namepost_name'
         create_a_post(self, post_name2)
         self.driver.back()
+        time.sleep(1)
         self.driver.find_element_by_tag_name('input').send_keys(post_name2)
         self.assertTrue(len(self.driver.find_elements_by_link_text(post_name2)) > 0)
         print('test_search_post_with_ISP_input2 ok')

@@ -445,6 +445,7 @@ class TestPostEdit(unittest.TestCase):
         post_name = 'abc'
         # go_back_to_posts_page_from_edit_page(self)  # todo: 要移除? todo:要加wait?
         self.driver.back()  # todo: 要移除?
+        time.sleep(1)
         delete_a_post(self, post_name)
         sign_out(self)
         go_back_to_home_page_from_sign_in_page(self)
