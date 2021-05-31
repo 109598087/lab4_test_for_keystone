@@ -100,6 +100,7 @@ class TestPostCreate(unittest.TestCase):
         assert 'Your changes have been saved successfully' in self.driver.find_element_by_xpath(
             '//*[@class= "css-ctpeu"]').text
         self.driver.back()  # todo: back?
+        time.sleep(1)
         comment_id = self.driver.find_element_by_xpath('//*[contains(@href, "/keystone/post-comments/")]').text
         verify_comments_page_have_comment(self, comment_id)
         print('test_edit_comment_with_ISP_input ok')
@@ -128,6 +129,7 @@ class TestPostCreate(unittest.TestCase):
         time.sleep(2)
         verify_edit_comment_successfully(self)
         self.driver.back()  # todo: back?
+        time.sleep(1)
         comment_id = self.driver.find_element_by_xpath('//*[contains(@href, "/keystone/post-comments/")]').text
         verify_comments_page_have_comment(self, comment_id)
         print('test_edit_comment_with_ISP_input ok')
@@ -156,6 +158,7 @@ class TestPostCreate(unittest.TestCase):
         save_edit_comment(self)
         verify_edit_comment_successfully(self)
         self.driver.back()  # todo: back?
+        time.sleep(1)
         comment_id = self.driver.find_element_by_xpath('//*[contains(@href, "/keystone/post-comments/")]').text
         verify_comments_page_have_comment(self, comment_id)
         print('test_edit_comment_with_ISP_input ok')
@@ -184,6 +187,7 @@ class TestPostCreate(unittest.TestCase):
         save_edit_comment(self)
         verify_edit_comment_successfully(self)
         self.driver.back()  # todo: back?
+        time.sleep(1)
         comment_id = self.driver.find_element_by_xpath('//*[contains(@href, "/keystone/post-comments/")]').text
         verify_comments_page_have_comment(self, comment_id)
         print('test_edit_comment_with_ISP_input ok')
@@ -212,6 +216,7 @@ class TestPostCreate(unittest.TestCase):
         save_edit_comment(self)
         verify_edit_comment_successfully(self)
         self.driver.back()  # todo: back?
+        time.sleep(1)
         comment_id = self.driver.find_element_by_xpath('//*[contains(@href, "/keystone/post-comments/")]').text
         verify_comments_page_have_comment(self, comment_id)
         print('test_edit_comment_with_ISP_input ok')
@@ -240,6 +245,7 @@ class TestPostCreate(unittest.TestCase):
         save_edit_comment(self)
         verify_edit_comment_successfully(self)
         self.driver.back()  # todo: back?
+        time.sleep(1)
         comment_id = self.driver.find_element_by_xpath('//*[contains(@href, "/keystone/post-comments/")]').text
         verify_comments_page_have_comment(self, comment_id)
         print('test_edit_comment_with_ISP_input ok')
@@ -268,6 +274,7 @@ class TestPostCreate(unittest.TestCase):
         save_edit_comment(self)
         verify_edit_comment_successfully(self)
         self.driver.back()  # todo: back?
+        time.sleep(1)
         comment_id = self.driver.find_element_by_xpath('//*[contains(@href, "/keystone/post-comments/")]').text
         verify_comments_page_have_comment(self, comment_id)
         print('test_edit_comment_with_ISP_input ok')
@@ -295,6 +302,7 @@ class TestPostCreate(unittest.TestCase):
         save_edit_comment(self)
         verify_edit_comment_successfully(self)
         self.driver.back()  # todo: back?
+        time.sleep(1)
         comment_id = self.driver.find_element_by_xpath('//*[contains(@href, "/keystone/post-comments/")]').text
         verify_comments_page_have_comment(self, comment_id)
         print('test_edit_comment_with_ISP_input ok')
@@ -322,6 +330,7 @@ class TestPostCreate(unittest.TestCase):
     #     save_edit_comment(self)
     #     verify_edit_comment_successfully(self)
     #     self.driver.back()  # todo: back?
+    #     time.sleep(1)
     #     comment_id = self.driver.find_element_by_xpath('//*[contains(@href, "/keystone/post-comments/")]').text
     #     verify_comments_page_have_comment(self, comment_id)
     #     print('test_edit_comment_with_ISP_input ok')

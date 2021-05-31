@@ -138,7 +138,7 @@ class TestPostCreate(unittest.TestCase):
         comment_author = 'Demo User'
         create_a_comment(self, comment_author, post_name)
         self.driver.back()  # todo: back?
-
+        time.sleep(1)
         # delete comment
         comment_id = self.driver.find_element_by_xpath('//*[contains(@href, "/keystone/post-comments/")]').text
         delete_a_comment(self, comment_id)
@@ -186,6 +186,7 @@ class TestPostCreate(unittest.TestCase):
         wait_until_delete_warning_dialog(self)
         click_cancel_button(self)
         self.driver.back()
+        time.sleep(1)
         verify_comments_page_have_comment(self, comment_id)
 
     def tearDown(self) -> None:

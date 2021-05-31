@@ -152,6 +152,7 @@ class TestCommentCreate(unittest.TestCase):
         post_name = 'no_post'
         create_a_comment(self, comment_author, post_name)
         self.driver.back()  # todo: go_back
+        time.sleep(1)
         # with self.assertRaises(NoSuchElementException):
         #     self.driver.find_element_by_xpath('//*[contains(@href, "/keystone/post-comments/")]')
         print("test_create_comment_and_cancel_with_post ok")
