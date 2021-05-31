@@ -158,6 +158,7 @@ class TestPostCreate(unittest.TestCase):
         self.driver.back()  # todo: back?
 
         # delete comment
+        time.sleep(1)
         comment_id = self.driver.find_element_by_xpath('//*[contains(@href, "/keystone/post-comments/")]').text
         delete_a_comment(self, comment_id)
         with self.assertRaises(NoSuchElementException):
