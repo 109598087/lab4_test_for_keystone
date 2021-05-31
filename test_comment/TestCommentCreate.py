@@ -10,6 +10,7 @@ from keywords.on_admin_ui_page import click_a_dashboard_button
 from keywords.wait_until_is_visible import wait_until_home_page_is_visible, wait_until_posts_page_is_visible, \
     wait_until_element_visible_by_xpath, wait_until_comments_page_is_visible, wait_until_admin_ui_page_is_visible, \
     wait_until_edit_comment_page_is_visible
+from test_comment.TestCommentDelete import delete_a_comment
 from test_post.TestPostCreate import sign_in_as_admin, sign_out, go_back_to_home_page_from_sign_in_page, \
     click_create_submit_button, go_to_posts_page_from_admin_ui_page, create_a_post, click_cancel_button
 
@@ -103,6 +104,7 @@ class TestCommentCreate(unittest.TestCase):
         verify_comments_page_have_comment(self, comment_id)
         print("test_create_comment_with_ISP_input1 ok")
         # todo: teardown
+        delete_a_comment(self, comment_id)
 
     def test_create_comment_with_ISP_input2(self):
         go_to_posts_page_from_admin_ui_page(self)
@@ -117,6 +119,7 @@ class TestCommentCreate(unittest.TestCase):
         verify_comments_page_have_comment(self, comment_id)
         print("test_create_comment_with_ISP_input2 ok")
         # todo: teardown
+        delete_a_comment(self, comment_id)
 
     def test_create_comment_with_ISP_input3(self):
         go_to_posts_page_from_admin_ui_page(self)
@@ -131,6 +134,7 @@ class TestCommentCreate(unittest.TestCase):
         verify_comments_page_have_comment(self, comment_id)
         print("test_create_comment_with_ISP_input3 ok")
         # todo: teardown
+        delete_a_comment(self, comment_id)
 
     def test_create_comment_and_cancel_with_post(self):
         go_to_posts_page_from_admin_ui_page(self)

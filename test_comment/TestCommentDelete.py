@@ -4,20 +4,86 @@ from selenium import webdriver
 import unittest
 
 from selenium.common.exceptions import NoSuchElementException
+from selenium.webdriver.common.keys import Keys
 
+from keywords.on_admin_ui_page import click_a_dashboard_button
 from keywords.wait_until_is_visible import wait_until_home_page_is_visible, wait_until_comments_page_is_visible, \
-    wait_until_delete_warning_dialog, wait_until_edit_comment_page_is_visible
-from test_comment.TestCommentCreate import go_to_admin_ui_page_from_comments_page, \
-    go_to_comments_page_from_admin_ui_page, create_a_comment, verify_comments_page_have_comment
+    wait_until_delete_warning_dialog, wait_until_edit_comment_page_is_visible, wait_until_admin_ui_page_is_visible, \
+    wait_until_posts_page_is_visible, wait_until_element_visible_by_xpath
 from test_post.TestPostCreate import sign_in_as_admin, sign_out, go_back_to_home_page_from_sign_in_page, \
-    go_to_posts_page_from_admin_ui_page, create_a_post
+    go_to_posts_page_from_admin_ui_page, create_a_post, click_create_submit_button
+
+
+# on posts_page -> admin_ui_page
+def go_to_comments_page_from_admin_ui_page(self):
+    click_a_dashboard_button(self, 'Posts', 'Comments')
+    wait_until_posts_page_is_visible(self)
+
+
+def click_create_comment_button(self):
+    self.driver.find_element_by_xpath('//*[contains(text(), "Create ")]').click()
+
+
+def input_comment_author(self, comment_author):
+    self.driver.find_element_by_xpath(
+        '//*[contains(@class, "css-1wrt3l9") and @for="author"]//*[@class = "Select-arrow"]').click()
+    time.sleep(2)  # todo: wait
+    self.driver.find_element_by_xpath(
+        '//*[contains(@class, "css-1wrt3l9") and @for="author"]//*[contains(@aria-activedescendant, "react-select")]') \
+        .send_keys(comment_author)
+    time.sleep(2)  # todo: wait
+    self.driver.find_element_by_xpath(
+        '//*[contains(@class, "css-1wrt3l9") and @for="author"]//*[contains(@aria-activedescendant, "react-select")]') \
+        .send_keys(Keys.ENTER)
+
+
+def input_comment_post(self, post_name):
+    self.driver.find_element_by_xpath(
+        '//*[contains(@class, "css-1wrt3l9") and @for="post"]//*[@class = "Select-arrow"]').click()
+    time.sleep(2)  # todo: wait
+    self.driver.find_element_by_xpath(
+        '//*[contains(@class, "css-1wrt3l9") and @for="post"]//*[contains(@aria-activedescendant, "react-select")]') \
+        .send_keys(post_name)
+    time.sleep(2)  # todo: wait
+    self.driver.find_element_by_xpath(
+        '//*[contains(@class, "css-1wrt3l9") and @for="post"]//*[contains(@aria-activedescendant, "react-select")]') \
+        .send_keys(Keys.ENTER)
+
+
+#########################################################################################
+def wait_until_create_a_new_comment_dialog_is_visible(self):
+    wait_until_element_visible_by_xpath(self, '//*[@class="css-s2cbvv"]')
+
+
+def create_a_comment(self, comment_author, post_name):
+    click_create_comment_button(self)
+    wait_until_create_a_new_comment_dialog_is_visible(self)
+    input_comment_author(self, comment_author)
+    input_comment_post(self, post_name)
+    click_create_submit_button(self)
+    wait_until_edit_comment_page_is_visible(self)
+
+
+def go_back_to_comments_page(self):
+    self.driver.find_element_by_link_text('Comments').click()
+    wait_until_comments_page_is_visible(self)
+
+
+def verify_comments_page_have_comment(self, comment_id):
+    self.assertTrue(self.driver.find_element_by_xpath(
+        '//*[contains(@href, "/keystone/post-comments/' + comment_id + '")]') is not None)
+    self.assertTrue(self.driver.find_element_by_link_text('Demo User') is not None)
+
+
+def go_to_admin_ui_page_from_comments_page(self):
+    self.driver.find_element_by_xpath('//*[@href="/keystone"]').click()
+    wait_until_admin_ui_page_is_visible(self)
 
 
 def click_cancel_button(self):
     self.driver.find_element_by_xpath('//*[contains(text(), "Cancel") and @data-button-type="cancel"]').click()
 
 
-#############################################################################
 def delete_a_comment(self, comment_id):
     self.driver.find_element_by_xpath('//*[@href="/keystone/post-comments/' + comment_id + '"]').click()
     wait_until_edit_comment_page_is_visible(self)
@@ -26,6 +92,9 @@ def delete_a_comment(self, comment_id):
     self.driver.find_element_by_xpath(
         '//*[contains(@data-button-type, "confirm") and contains(text(), "Delete")]').click()
     wait_until_comments_page_is_visible(self)
+
+
+#############################################################################
 
 
 class TestPostCreate(unittest.TestCase):

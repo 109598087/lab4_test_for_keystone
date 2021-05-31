@@ -5,7 +5,8 @@ import unittest
 
 from selenium.webdriver.common.keys import Keys
 
-from keywords.wait_until_is_visible import wait_until_home_page_is_visible, wait_until_admin_ui_page_is_visible
+from keywords.wait_until_is_visible import wait_until_home_page_is_visible, wait_until_admin_ui_page_is_visible, \
+    wait_until_edit_comment_page_is_visible, wait_until_delete_warning_dialog, wait_until_comments_page_is_visible
 from test_comment.TestCommentCreate import go_to_comments_page_from_admin_ui_page, create_a_comment, \
     input_comment_author, input_comment_post, go_to_admin_ui_page_from_comments_page, verify_comments_page_have_comment
 from test_post.TestPostCreate import sign_in_as_admin, sign_out, go_back_to_home_page_from_sign_in_page, create_a_post, \
@@ -13,6 +14,14 @@ from test_post.TestPostCreate import sign_in_as_admin, sign_out, go_back_to_home
 
 
 # from test_post.TestPostEdit import click_save_button
+def delete_a_comment(self, comment_id):
+    self.driver.find_element_by_xpath('//*[@href="/keystone/post-comments/' + comment_id + '"]').click()
+    wait_until_edit_comment_page_is_visible(self)
+    self.driver.find_element_by_xpath('//*[contains(@data-button, "delete")]').click()
+    wait_until_delete_warning_dialog(self)
+    self.driver.find_element_by_xpath(
+        '//*[contains(@data-button-type, "confirm") and contains(text(), "Delete")]').click()
+    wait_until_comments_page_is_visible(self)
 
 
 def click_comment_state_select_arrow(self):
@@ -121,6 +130,7 @@ class TestPostCreate(unittest.TestCase):
         comment_id = self.driver.find_element_by_xpath('//*[contains(@href, "/keystone/post-comments/")]').text
         verify_comments_page_have_comment(self, comment_id)
         print('test_edit_comment_with_ISP_input ok')
+        delete_a_comment(self, comment_id)
 
     def test_edit_comment_with_ISP_input3(self):
         # create post
@@ -148,6 +158,7 @@ class TestPostCreate(unittest.TestCase):
         comment_id = self.driver.find_element_by_xpath('//*[contains(@href, "/keystone/post-comments/")]').text
         verify_comments_page_have_comment(self, comment_id)
         print('test_edit_comment_with_ISP_input ok')
+        delete_a_comment(self, comment_id)
 
     def test_edit_comment_with_ISP_input4(self):
         # create post
@@ -175,6 +186,7 @@ class TestPostCreate(unittest.TestCase):
         comment_id = self.driver.find_element_by_xpath('//*[contains(@href, "/keystone/post-comments/")]').text
         verify_comments_page_have_comment(self, comment_id)
         print('test_edit_comment_with_ISP_input ok')
+        delete_a_comment(self, comment_id)
 
     def test_edit_comment_with_ISP_input5(self):
         # create post
@@ -202,6 +214,7 @@ class TestPostCreate(unittest.TestCase):
         comment_id = self.driver.find_element_by_xpath('//*[contains(@href, "/keystone/post-comments/")]').text
         verify_comments_page_have_comment(self, comment_id)
         print('test_edit_comment_with_ISP_input ok')
+        delete_a_comment(self, comment_id)
 
     def test_edit_comment_with_ISP_input6(self):
         # create post
@@ -229,6 +242,7 @@ class TestPostCreate(unittest.TestCase):
         comment_id = self.driver.find_element_by_xpath('//*[contains(@href, "/keystone/post-comments/")]').text
         verify_comments_page_have_comment(self, comment_id)
         print('test_edit_comment_with_ISP_input ok')
+        delete_a_comment(self, comment_id)
 
     def test_edit_comment_with_ISP_input7(self):
         # create post
@@ -256,6 +270,7 @@ class TestPostCreate(unittest.TestCase):
         comment_id = self.driver.find_element_by_xpath('//*[contains(@href, "/keystone/post-comments/")]').text
         verify_comments_page_have_comment(self, comment_id)
         print('test_edit_comment_with_ISP_input ok')
+        delete_a_comment(self, comment_id)
 
     def test_edit_comment_with_ISP_input8(self):
         # create post
@@ -282,6 +297,7 @@ class TestPostCreate(unittest.TestCase):
         comment_id = self.driver.find_element_by_xpath('//*[contains(@href, "/keystone/post-comments/")]').text
         verify_comments_page_have_comment(self, comment_id)
         print('test_edit_comment_with_ISP_input ok')
+        delete_a_comment(self, comment_id)
 
     # def test_edit_comment_with_ISP_input9(self):
     #     # create post

@@ -34,7 +34,6 @@ class TestPostDelete(unittest.TestCase):
         with self.assertRaises(NoSuchElementException):
             self.driver.find_element_by_link_text(post_name1)
         print('test_delete_a_post_with_ISP_input1 ok')
-        # todo: add print(message)!!!
 
     def test_delete_a_post_with_ISP_input2(self):
         post_name2 = 'abcpost_name_post_name2_post_name2_post_name2post_name2post_name2post_name2post_namee2'
@@ -44,7 +43,6 @@ class TestPostDelete(unittest.TestCase):
         with self.assertRaises(NoSuchElementException):
             self.driver.find_element_by_link_text(post_name2)
         print('test_delete_a_post_with_ISP_input2 ok')
-        # todo: add print(message)!!!
 
     def test_create_post_click_cancel_button_and_post_should_not_be_create(self):
         post_name1 = 'asdf'
