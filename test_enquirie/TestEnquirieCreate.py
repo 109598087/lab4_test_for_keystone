@@ -40,6 +40,7 @@ class TestEnquirieCreate(unittest.TestCase):
         self.driver.find_element_by_xpath('//*[contains(@class, "btn") and text()="Submit"]').submit()
         time.sleep(2)
         assert "Success!" in self.driver.find_element_by_tag_name('h1').text
+        print("TestEnquiryCreate ok")
 
     def tearDown(self) -> None:
         pass
