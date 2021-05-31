@@ -10,11 +10,12 @@ from keywords.on_admin_ui_page import click_a_dashboard_button
 from keywords.wait_until_is_visible import wait_until_home_page_is_visible, wait_until_comments_page_is_visible, \
     wait_until_delete_warning_dialog, wait_until_edit_comment_page_is_visible, wait_until_admin_ui_page_is_visible, \
     wait_until_posts_page_is_visible, wait_until_element_visible_by_xpath
-from test_post.TestPostCreate import sign_in_as_admin, sign_out, go_back_to_home_page_from_sign_in_page, \
-    go_to_posts_page_from_admin_ui_page, create_a_post, click_create_submit_button
-
 
 # on posts_page -> admin_ui_page
+from test_post.TestPostCreate import click_create_submit_button, sign_in_as_admin, go_to_posts_page_from_admin_ui_page, \
+    create_a_post, sign_out, go_back_to_home_page_from_sign_in_page
+
+
 def go_to_comments_page_from_admin_ui_page(self):
     click_a_dashboard_button(self, 'Posts', 'Comments')
     wait_until_posts_page_is_visible(self)
@@ -96,7 +97,6 @@ def delete_a_comment(self, comment_id):
 
 #############################################################################
 
-
 class TestPostCreate(unittest.TestCase):
     driver = None
 
@@ -120,7 +120,7 @@ class TestPostCreate(unittest.TestCase):
         comment_author = 'Demo User'
         create_a_comment(self, comment_author, post_name)
         self.driver.back()  # todo: back?
-
+        time.sleep(2)
         # delete comment
         comment_id = self.driver.find_element_by_xpath('//*[contains(@href, "/keystone/post-comments/")]').text
         delete_a_comment(self, comment_id)
@@ -176,7 +176,9 @@ class TestPostCreate(unittest.TestCase):
         self.driver.back()  # todo: back?
 
         # delete comment
+        time.sleep(1)
         comment_id = self.driver.find_element_by_xpath('//*[contains(@href, "/keystone/post-comments/")]').text
+        time.sleep(1)
         self.driver.find_element_by_xpath('//*[@href="/keystone/post-comments/' + comment_id + '"]').click()
         wait_until_edit_comment_page_is_visible(self)
         self.driver.find_element_by_xpath('//*[contains(@data-button, "delete")]').click()

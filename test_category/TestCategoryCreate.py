@@ -3,11 +3,11 @@ import time
 from selenium import webdriver
 import unittest
 
+from test_post.TestPostCreate import click_create_submit_button, scroll_page, \
+    click_go_back_to_posts_page_button, sign_in_as_admin, go_back_to_home_page_from_sign_in_page, sign_out
 from keywords.on_admin_ui_page import click_a_dashboard_button
 from keywords.wait_until_is_visible import wait_until_home_page_is_visible, wait_until_posts_page_is_visible, \
     wait_until_create_a_new_category_dialog_is_visible, wait_until_edit_category_page_is_visible
-from test_post.TestPostCreate import sign_in_as_admin, click_create_submit_button, sign_out, \
-    go_back_to_home_page_from_sign_in_page, scroll_page, click_go_back_to_posts_page_button
 
 
 # on posts page
@@ -25,7 +25,7 @@ def verify_categories_page_have_category(self, category_name):
         '//*[contains(text(), ' + "\"" + category_name + "\"" + ')]').text
 
 
-#######################################################################################################3
+#######################################################################################################
 # on posts_page -> admin_ui_page
 def go_to_categories_page_from_admin_ui_page(self):
     click_a_dashboard_button(self, 'Posts', 'Categories')

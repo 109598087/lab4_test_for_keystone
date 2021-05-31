@@ -5,7 +5,7 @@ import unittest
 
 from selenium.webdriver.common.keys import Keys
 
-from keywords.wait_until_is_visible import wait_until_home_page_is_visible, wait_until_admin_ui_page_is_visible, \
+from keywords.wait_until_is_visible import wait_until_home_page_is_visible, \
     wait_until_edit_comment_page_is_visible, wait_until_delete_warning_dialog, wait_until_comments_page_is_visible
 from test_comment.TestCommentCreate import go_to_comments_page_from_admin_ui_page, create_a_comment, \
     input_comment_author, input_comment_post, go_to_admin_ui_page_from_comments_page, verify_comments_page_have_comment
@@ -125,6 +125,7 @@ class TestPostCreate(unittest.TestCase):
         input_comment_state(self, comment_state)
         input_comment_content(self, comment_content)
         save_edit_comment(self)
+        time.sleep(2)
         verify_edit_comment_successfully(self)
         self.driver.back()  # todo: back?
         comment_id = self.driver.find_element_by_xpath('//*[contains(@href, "/keystone/post-comments/")]').text

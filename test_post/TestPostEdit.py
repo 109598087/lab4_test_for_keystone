@@ -6,7 +6,7 @@ import unittest
 from selenium.webdriver.common.keys import Keys
 
 from TestPostCreate import sign_in_as_admin, go_to_posts_page_from_admin_ui_page, create_a_post, delete_a_post, \
-    go_back_to_posts_page_from_edit_page, go_back_to_home_page_from_sign_in_page, sign_out, scroll_page
+    go_back_to_home_page_from_sign_in_page, sign_out
 from keywords.wait_until_is_visible import wait_until_home_page_is_visible, wait_until_input_select_is_visible, \
     wait_until_reset_warning_dialog, wait_until_edit_post_page_is_visible
 

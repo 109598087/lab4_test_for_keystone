@@ -1,4 +1,3 @@
-import time
 import uuid
 from selenium import webdriver
 import unittest
