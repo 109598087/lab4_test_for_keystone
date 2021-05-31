@@ -1,3 +1,5 @@
+import time
+
 from selenium import webdriver
 import unittest
 
@@ -37,6 +39,7 @@ class TestPostDelete(unittest.TestCase):
         post_name2 = 'abcpost_name_post_name2_post_name2_post_name2post_name2post_name2post_name2post_namee2'
         create_a_post(self, post_name2)
         self.driver.back()  # todo: 要移除?
+        time.sleep(1)
         delete_a_post(self, post_name2)
         with self.assertRaises(NoSuchElementException):
             self.driver.find_element_by_link_text(post_name2)
